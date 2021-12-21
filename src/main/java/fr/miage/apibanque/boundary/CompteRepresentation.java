@@ -36,12 +36,6 @@ public class CompteRepresentation {
         this.validator = validator;
     }
 
-    // GET all
-    @GetMapping
-    public ResponseEntity<?> getAllComptes() {
-        return ResponseEntity.ok(assembler.toCollectionModel(service.findAll()));
-    }
-
     // GET one
     @GetMapping(value="/{compteId}")
     public ResponseEntity<?> getOneCompte(@PathVariable("compteId") String id) {
@@ -64,7 +58,7 @@ public class CompteRepresentation {
                 compte.getNumTel(),
                 IbanGenerator.generate("FR")
         );
-        Compte saved = ir.save(compte2Save);
+        Compte saved = service.save(compte2Save);
         URI location = linkTo(CompteRepresentation.class).slash(saved.getUuid()).toUri();
         return ResponseEntity.created(location).build();
     }

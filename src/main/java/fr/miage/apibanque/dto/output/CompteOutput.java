@@ -20,27 +20,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CompteOutput {
 
-    @Id
-    private String uuid;
-
-    @NotNull
-    @NotBlank
     private String nom;
-
-    @Size(min = 2)
     private String prenom;
-
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateNaissance;
-
-    @Size(min = 2)
     private String pays;
-
-    @Size(min = 9, max=9)
     private String numPasseport;
-
-    @Pattern(regexp = "[0-9]+")
-    @Size(min = 10)
     private String numTel;
+    private String iban;
 }

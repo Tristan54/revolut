@@ -8,13 +8,16 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompteInput {
+public class CompteInput implements Serializable {
+
+    private static final long serialVersionId = 3466786534L;
 
     @NotNull
     @NotBlank
@@ -24,7 +27,7 @@ public class CompteInput {
     private String prenom;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateNaissance;
 
     @Size(min = 2)
