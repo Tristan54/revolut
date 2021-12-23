@@ -1,4 +1,4 @@
-package fr.miage.apibanque.service;
+package fr.miage.revolut.service;
 
 import java.util.Random;
 

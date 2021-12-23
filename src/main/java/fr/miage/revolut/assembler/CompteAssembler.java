@@ -1,9 +1,9 @@
-package fr.miage.apibanque.assembler;
+package fr.miage.revolut.assembler;
 
-import fr.miage.apibanque.boundary.CompteRepresentation;
-import fr.miage.apibanque.dto.output.CompteOutput;
-import fr.miage.apibanque.entity.Compte;
-import fr.miage.apibanque.mappers.CompteMapper;
+import fr.miage.revolut.boundary.CompteRepresentation;
+import fr.miage.revolut.dto.output.CompteOutput;
+import fr.miage.revolut.entity.Compte;
+import fr.miage.revolut.mappers.CompteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Component;

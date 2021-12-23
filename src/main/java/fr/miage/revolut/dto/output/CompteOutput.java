@@ -1,33 +1,25 @@
-package fr.miage.apibanque.entity;
+package fr.miage.revolut.dto.output;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.io.Serializable;
 import java.time.LocalDate;
 
-@Entity
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Compte implements Serializable {
+public class CompteOutput {
 
-    private static final long serialVersionId = 3456786534L;
-
-    @Id
-    private String uuid;
     private String nom;
     private String prenom;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateNaissance;
     private String pays;
     private String numPasseport;
-    private String motDePasse;
     private String numTel;
     private String iban;
-
 }

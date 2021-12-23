@@ -1,4 +1,4 @@
-package fr.miage.apibanque.dto.input;
+package fr.miage.revolut.dto.input;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
@@ -40,6 +40,6 @@ public class CompteInput implements Serializable {
     private String motDePasse;
 
     @Pattern(regexp = "[0-9]+")
-    @Size(min = 10)
+    @Size(min = 10, max = 10)
     private String numTel;
 }

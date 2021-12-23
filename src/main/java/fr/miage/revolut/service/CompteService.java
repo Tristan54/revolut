@@ -1,11 +1,12 @@
-package fr.miage.apibanque.service;
+package fr.miage.revolut.service;
 
-import fr.miage.apibanque.boundary.CompteRessource;
-import fr.miage.apibanque.entity.Compte;
+import fr.miage.revolut.boundary.CompteRessource;
+import fr.miage.revolut.entity.Compte;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -20,4 +21,5 @@ public class CompteService {
     public Compte save(Compte compte){
         return ressource.save(compte);
     }
+
 }

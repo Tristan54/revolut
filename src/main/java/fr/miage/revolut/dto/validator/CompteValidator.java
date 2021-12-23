@@ -1,6 +1,6 @@
-package fr.miage.apibanque.dto.validator;
+package fr.miage.revolut.dto.validator;
 
-import fr.miage.apibanque.dto.input.CompteInput;
+import fr.miage.revolut.dto.input.CompteInput;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;

@@ -1,13 +1,14 @@
-package fr.miage.apibanque;
+package fr.miage.revolut;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-import fr.miage.apibanque.boundary.CompteRessource;
-import fr.miage.apibanque.dto.input.CompteInput;
-import fr.miage.apibanque.entity.Compte;
-import fr.miage.apibanque.service.IbanGenerator;
+import fr.miage.revolut.boundary.CompteRessource;
+import fr.miage.revolut.dto.input.CompteInput;
+import fr.miage.revolut.entity.Compte;
+import fr.miage.revolut.service.CompteService;
+import fr.miage.revolut.service.IbanGenerator;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -38,6 +39,7 @@ class CompteTests {
 
 	@Autowired
 	CompteRessource ressource;
+	CompteService service;
 
 	private DateTimeFormatter formatter;
 
@@ -50,7 +52,7 @@ class CompteTests {
 
 	@Test
 	public void getOne() {
-		Compte compte = new Compte(UUID.randomUUID().toString(), "Nom", "Prénom", LocalDate.parse("12/11/1999", formatter), "France", "FR98156470", "password", "0951366785", IbanGenerator.generate("FR"));
+		Compte compte = new Compte(UUID.randomUUID().toString(),"Nom", "Prénom", LocalDate.parse("12/11/1999", formatter), "France", "FR98156470", "password", "0951366785", IbanGenerator.generate("FR"));
 		ressource.save(compte);
 		Response response = when().get("/comptes/"+compte.getUuid())
 				.then()

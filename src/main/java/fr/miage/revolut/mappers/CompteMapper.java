@@ -1,8 +1,8 @@
-package fr.miage.apibanque.mappers;
+package fr.miage.revolut.mappers;
 
-import fr.miage.apibanque.dto.input.CompteInput;
-import fr.miage.apibanque.dto.output.CompteOutput;
-import fr.miage.apibanque.entity.Compte;
+import fr.miage.revolut.dto.input.CompteInput;
+import fr.miage.revolut.dto.output.CompteOutput;
+import fr.miage.revolut.entity.Compte;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
