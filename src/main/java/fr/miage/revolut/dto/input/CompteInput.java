@@ -1,7 +1,10 @@
 package fr.miage.revolut.dto.input;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
@@ -15,31 +18,31 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompteInput implements Serializable {
-
-    private static final long serialVersionId = 3466786534L;
+public class CompteInput {
 
     @NotNull
     @NotBlank
     private String nom;
 
-    @Size(min = 2)
+    @NotNull
+    @NotBlank
     private String prenom;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateNaissance;
 
-    @Size(min = 2)
+    @NotNull
+    @NotBlank
     private String pays;
 
     @Size(min = 9, max=9)
     private String numPasseport;
 
     @NotNull
+    @NotBlank
     private String motDePasse;
 
-    @Pattern(regexp = "[0-9]+")
-    @Size(min = 10, max = 10)
+    @Pattern(regexp = "^\\+(?:[0-9]?){6,14}[0-9]$")
     private String numTel;
 }

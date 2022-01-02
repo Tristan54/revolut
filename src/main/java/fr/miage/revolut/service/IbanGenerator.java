@@ -1,19 +1,12 @@
 package fr.miage.revolut.service;
 
-import java.util.Random;
+import org.apache.commons.lang3.RandomStringUtils;
 
 public class IbanGenerator {
 
     public static String generate(String pays){
-        Random rand = new Random();
-        StringBuilder res = new StringBuilder();
+        String[] indice = pays.split("");
 
-        res.append(pays);
-
-        for (int i = 0; i < 14; i++) {
-            res.append(rand.nextInt(10));
-        }
-
-        return res.toString();
+        return indice[0].toUpperCase() + indice[1].toUpperCase() + RandomStringUtils.randomAlphanumeric(20).toUpperCase();
     }
 }

@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -22,4 +21,7 @@ public class CompteService {
         return ressource.save(compte);
     }
 
+    public Compte findByNumTel(String numTel) {
+        return ressource.findByNumTel(numTel);
+    }
 }

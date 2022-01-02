@@ -9,6 +9,7 @@ import fr.miage.revolut.dto.input.CompteInput;
 import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.service.CompteService;
 import fr.miage.revolut.service.IbanGenerator;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
@@ -17,8 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-
-import io.restassured.RestAssured;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
@@ -52,7 +51,7 @@ class CompteTests {
 
 	@Test
 	public void getOne() {
-		Compte compte = new Compte(UUID.randomUUID().toString(),"Nom", "Prénom", LocalDate.parse("12/11/1999", formatter), "France", "FR98156470", "password", "0951366785", IbanGenerator.generate("FR"));
+		Compte compte = new Compte(UUID.randomUUID().toString(),"Nom", "Prénom", LocalDate.parse("12/11/1999", formatter), "France", "FR98156470", "0951366785", IbanGenerator.generate("FR"), 0);
 		ressource.save(compte);
 		Response response = when().get("/comptes/"+compte.getUuid())
 				.then()

@@ -1,7 +1,10 @@
-mapper dans assembler
-service pour le traitement (return Optional<Compte> ou error)
-controller appel service + assembler
-
-Test iban unique ... 
+Test iban unique ...
 Test uuid unique
 Test identifiant unique
+enlever mdp
+faire attention aux opérations
+ débiteur et créditeur : retirer ou ajouter de l'argent en fonction de l'opération
+
+2 opérations différentes :
+ - paiement / paiement en ligne
+ - virement / versement

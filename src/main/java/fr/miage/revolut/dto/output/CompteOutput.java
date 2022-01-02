@@ -22,4 +22,5 @@ public class CompteOutput {
     private String numPasseport;
     private String numTel;
     private String iban;
+    private double montant;
 }

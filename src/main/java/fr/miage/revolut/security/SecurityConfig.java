@@ -36,7 +36,8 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().sessionManagement().
                 sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                 .antMatchers("/comptes").permitAll()
-                .antMatchers("/comptes/signin").permitAll()
+                .antMatchers("/comptes/connexion").permitAll()
+                .antMatchers("/comptes/**").authenticated()
                 .anyRequest().authenticated();
     }
 

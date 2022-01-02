@@ -1,10 +1,12 @@
 package fr.miage.revolut.boundary;
 
 import fr.miage.revolut.dto.input.CompteSignIn;
+import fr.miage.revolut.dto.input.OperationInput;
 import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.dto.input.CompteInput;
 import fr.miage.revolut.dto.validator.CompteValidator;
 import fr.miage.revolut.assembler.CompteAssembler;
+import fr.miage.revolut.entity.Operation;
 import fr.miage.revolut.service.CompteService;
 import fr.miage.revolut.service.IbanGenerator;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
@@ -26,16 +28,18 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.hateoas.server.ExposesResourceFor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -60,21 +64,12 @@ public class CompteRepresentation {
         this.validator = validator;
     }
 
-    // GET one
     @GetMapping(value="/{compteId}")
+    @PreAuthorize(value = "authentication.name.equals(#id)")
     public ResponseEntity<?> getOneCompte(@PathVariable("compteId") String id) {
-        ResponseEntity res =  ResponseEntity.notFound().build();
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Optional<Compte> compte = service.findById(id);
-
-        if(compte.isPresent() && id.equals(auth.getName())){
-            res = ResponseEntity.ok(assembler.toModel(compte.get()));
-        } else {
-            res = ResponseEntity.badRequest().build();
-        }
-
-        return res;
+        return Optional.ofNullable(service.findById(id)).filter(Optional::isPresent)
+                .map(c -> ResponseEntity.ok(assembler.toModel(c.get())))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping()
@@ -94,7 +89,6 @@ public class CompteRepresentation {
         user.setFirstName(compte.getPrenom());
         user.setLastName(compte.getNom());
 
-        // Get realm
         RealmResource realmResource = keycloak.realm(env.getProperty("keycloak.realm"));
         UsersResource usersRessource = realmResource.users();
 
@@ -114,9 +108,13 @@ public class CompteRepresentation {
 
             userResource.resetPassword(passwordCred);
 
-            RoleRepresentation realmRoleUser = realmResource.roles().get(env.getProperty("keycloak.realm")).toRepresentation();
+            RoleRepresentation realmRoleUser = realmResource.roles().get(env.getProperty("app.keycloak.role")).toRepresentation();
 
             userResource.roles().realmLevel().add(Arrays.asList(realmRoleUser));
+        }else{
+            Compte saved = service.findByNumTel(compte.getNumTel());
+            URI location = linkTo(CompteRepresentation.class).slash(saved.getUuid()).toUri();
+            return ResponseEntity.status(HttpStatus.CONFLICT).header(HttpHeaders.LOCATION, location.toString()).build();
         }
 
         Compte compte2Save = new Compte(
@@ -126,9 +124,9 @@ public class CompteRepresentation {
                 compte.getDateNaissance(),
                 compte.getPays(),
                 compte.getNumPasseport(),
-                compte.getMotDePasse(),
                 compte.getNumTel(),
-                IbanGenerator.generate("FR")
+                IbanGenerator.generate(compte.getPays()),
+                0
         );
 
         Compte saved = service.save(compte2Save);
@@ -136,9 +134,8 @@ public class CompteRepresentation {
         return ResponseEntity.created(location).build();
     }
 
-    // changer de controleur
-    @PostMapping(path = "/signin")
-    public ResponseEntity<?> signin(@RequestBody @Valid CompteSignIn compte) {
+    @PostMapping(path = "/connexion")
+    public ResponseEntity<?> connexion(@RequestBody @Valid CompteSignIn compte) {
 
         Map<String, Object> clientCredentials = new HashMap<>();
         clientCredentials.put("secret", env.getProperty("app.keycloak.clientSecret"));

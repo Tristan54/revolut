@@ -18,7 +18,6 @@ public class CompteSignIn {
     @NotNull
     private String motDePasse;
 
-    @Pattern(regexp = "[0-9]+")
-    @Size(min = 10, max = 10)
+    @Pattern(regexp = "^\\+(?:[0-9]?){6,14}[0-9]$")
     private String numTel;
 }
