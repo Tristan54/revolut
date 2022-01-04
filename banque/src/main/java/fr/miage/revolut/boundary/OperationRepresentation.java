@@ -29,13 +29,11 @@ public class OperationRepresentation {
 
 
     private final OperationService service;
-    private final CompteService compteService;
     private final OperationAssembler assembler;
     private final OperationValidator validator;
 
-    public OperationRepresentation(OperationService service, CompteService compteService, OperationAssembler assembler, OperationValidator validator) {
+    public OperationRepresentation(OperationService service, OperationAssembler assembler, OperationValidator validator) {
         this.service = service;
-        this.compteService = compteService;
         this.assembler = assembler;
         this.validator = validator;
     }
@@ -52,22 +50,8 @@ public class OperationRepresentation {
     @PreAuthorize(value = "authentication.name.equals(#compteId)")
     @Transactional
     public ResponseEntity<?> createOperation(@RequestBody @Valid OperationInput operation, @PathVariable("compteId") String compteId){
-        Compte compte = compteService.findById(compteId).get();
-        // faire des opérations dans le service
-        Operation operation2Save = new Operation(
-                UUID.randomUUID().toString(),
-                LocalDateTime.now(),
-                operation.getLibelle(),
-                operation.getMontant(),
-                0,
-                operation.getNomCrediteur(),
-                operation.getIbanCrediteur(),
-                compte.getNom(),
-                compte.getIban(),
-                operation.getCategorie(),
-                operation.getPays()
-        );
-        Operation saved = service.save(operation2Save);
+
+        Operation saved = service.createOperation(operation, compteId);
         URI location = linkTo(OperationRepresentation.class, compteId).slash(saved.getUuid()).toUri();
         return ResponseEntity.created(location).build();
     }

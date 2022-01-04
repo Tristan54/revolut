@@ -6,12 +6,12 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: revolut
+      POSTGRES_MULTIPLE_DATABASES: revolut, keycloak, conversion
     volumes:
+      - ./db:/docker-entrypoint-initdb.d
       - ./data:/data/postgres
     ports:
       - "5432:5432"
-    restart: unless-stopped
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     volumes:
@@ -19,7 +19,7 @@ services:
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: postgres
-      DB_DATABASE: revolut
+      DB_DATABASE: keycloak
       DB_USER: postgres
       DB_SCHEMA: public
       DB_PASSWORD: password
