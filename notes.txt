@@ -1,9 +1,12 @@
 Test iban unique ...
 Test uuid unique
 Test identifiant unique
-enlever mdp
+
+attention à la validation (faire des tests je pense)
+
 faire attention aux opérations
  débiteur et créditeur : retirer ou ajouter de l'argent en fonction de l'opération
+
 
 2 opérations différentes :
  - paiement / paiement en ligne

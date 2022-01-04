@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -15,9 +16,9 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class CompteSignIn {
 
-    @NotNull
+    @NotBlank(message = "Mot de passe invalide")
     private String motDePasse;
 
-    @Pattern(regexp = "^\\+(?:[0-9]?){6,14}[0-9]$")
+    @Pattern(regexp = "^\\+(?:[0-9]?){6,14}[0-9]$", message = "Numéro de téléphone invalide")
     private String numTel;
 }

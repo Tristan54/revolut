@@ -3,7 +3,9 @@ package fr.miage.revolut.boundary;
 import fr.miage.revolut.assembler.OperationAssembler;
 import fr.miage.revolut.dto.input.OperationInput;
 import fr.miage.revolut.dto.validator.OperationValidator;
+import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.entity.Operation;
+import fr.miage.revolut.service.CompteService;
 import fr.miage.revolut.service.OperationService;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
@@ -27,11 +29,13 @@ public class OperationRepresentation {
 
 
     private final OperationService service;
+    private final CompteService compteService;
     private final OperationAssembler assembler;
     private final OperationValidator validator;
 
-    public OperationRepresentation(OperationService service, OperationAssembler assembler, OperationValidator validator) {
+    public OperationRepresentation(OperationService service, CompteService compteService, OperationAssembler assembler, OperationValidator validator) {
         this.service = service;
+        this.compteService = compteService;
         this.assembler = assembler;
         this.validator = validator;
     }
@@ -48,6 +52,7 @@ public class OperationRepresentation {
     @PreAuthorize(value = "authentication.name.equals(#compteId)")
     @Transactional
     public ResponseEntity<?> createOperation(@RequestBody @Valid OperationInput operation, @PathVariable("compteId") String compteId){
+        Compte compte = compteService.findById(compteId).get();
         // faire des opérations dans le service
         Operation operation2Save = new Operation(
                 UUID.randomUUID().toString(),
@@ -57,6 +62,8 @@ public class OperationRepresentation {
                 0,
                 operation.getNomCrediteur(),
                 operation.getIbanCrediteur(),
+                compte.getNom(),
+                compte.getIban(),
                 operation.getCategorie(),
                 operation.getPays()
         );

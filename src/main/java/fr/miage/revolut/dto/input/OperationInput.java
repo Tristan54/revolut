@@ -16,24 +16,20 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class OperationInput {
 
-    @NotNull
-    @NotBlank
+    @NotBlank(message = "Libéllé invalide")
     private String libelle;
 
-    @DecimalMin("0.0")
+    @DecimalMin(value = "0.0", message = "Montant invalide")
     private double montant;
 
-    @NotNull
-    @NotBlank
+    @NotBlank(message = "Nom du créditeur invalide")
     private String nomCrediteur;
 
-    @NotNull
-    @NotBlank
+    @NotBlank(message = "Iban du créditeur invalide invalide")
     private String ibanCrediteur;
 
     private String categorie;
 
-    @NotNull
-    @NotBlank
+    @NotBlank(message = "Pays invalide")
     private String pays;
 }

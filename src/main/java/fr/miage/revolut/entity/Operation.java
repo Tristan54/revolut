@@ -24,6 +24,8 @@ public class Operation {
     private double taux;
     private String nomCrediteur;
     private String ibanCrediteur;
+    private String nomDebiteur;
+    private String ibanDebiteur;
     private String categorie;
     private String pays;
 }

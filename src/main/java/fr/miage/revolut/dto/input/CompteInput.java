@@ -20,29 +20,26 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CompteInput {
 
-    @NotNull
-    @NotBlank
+    @NotBlank(message = "Nom invalide")
     private String nom;
 
-    @NotNull
-    @NotBlank
+    @NotBlank(message = "Prénom invalide")
     private String prenom;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "dd/MM/yyyy")
+    @NotNull(message = "Date de naissance invalide")
     private LocalDate dateNaissance;
 
-    @NotNull
-    @NotBlank
+    @NotBlank(message = "Pays invalide")
     private String pays;
 
-    @Size(min = 9, max=9)
+    @Size(min = 9, max=9, message = "Numéro de passeport invalide")
     private String numPasseport;
 
-    @NotNull
-    @NotBlank
+    @NotBlank(message = "Mot de passe invalide")
     private String motDePasse;
 
-    @Pattern(regexp = "^\\+(?:[0-9]?){6,14}[0-9]$")
+    @Pattern(regexp = "^\\+(?:[0-9]?){6,14}[0-9]$", message = "Numéro de téléphone invalide")
     private String numTel;
 }
