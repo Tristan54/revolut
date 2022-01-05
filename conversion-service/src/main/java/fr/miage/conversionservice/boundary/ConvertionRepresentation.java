@@ -19,10 +19,12 @@ public class ConvertionRepresentation {
 
     @GetMapping(value = "/conversion/source/{source}/cible/{cible}")
     public ResponseEntity<?> converstion(@PathVariable String source, @PathVariable String cible){
-        TauxChange tauxChangeSource = ressource.findByCode(source);
-        TauxChange tauxChangeCible = ressource.findByCode(cible);
+        TauxChange tauxChangeSource = ressource.findByPays(source);
+        TauxChange tauxChangeCible = ressource.findByPays(cible);
 
-
+        if(tauxChangeCible == null || tauxChangeSource == null){
+            return ResponseEntity.notFound().build();
+        }
 
         BigDecimal tauxChange = tauxChangeCible.getTauxConversion().divide(tauxChangeSource.getTauxConversion(), 4);
 

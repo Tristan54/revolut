@@ -1,4 +1,3 @@
-
 insert into taux_change(id, pays, code, taux_conversion) values('0f47c809-6233-42c4-a8d3-39fcf9187ee7','Advanced Economies', 'AME', 46.75440375045);
 insert into taux_change(id, pays, code, taux_conversion) values('188cc324-75c4-4c71-9867-bcdd0cf8183e','Afghanistan', 'AFG', 76.7175);
 insert into taux_change(id, pays, code, taux_conversion) values('685290a7-5247-4d54-be33-f492fcdef23d','Albania', 'ALB', 111.80100890637);
@@ -10,7 +9,7 @@ insert into taux_change(id, pays, code, taux_conversion) values('82e49245-7d84-4
 insert into taux_change(id, pays, code, taux_conversion) values('edb20370-ddec-4e60-b880-37de40c8c8ac','Australia', 'AUS', 1.50944545916);
 insert into taux_change(id, pays, code, taux_conversion) values('d0cb0583-867c-4708-88b5-359f9330f086','Austria', 'AUT', 0.90334325267);
 insert into taux_change(id, pays, code, taux_conversion) values('aee63fc2-03c0-4183-853f-ab186cdfde5c','Azerbaijan', 'AZE', 1.699499717);
-insert into taux_change(id, pays, code, taux_conversion) values('eed10c23-e1c1-482b-b36f-af3e5b17e4e6','Bahamas The', 'BHS', 1);
+insert into taux_change(id, pays, code, taux_conversion) values('eed10c23-e1c1-482b-b36f-af3e5b17e4e6','Bahamas', 'BHS', 1);
 insert into taux_change(id, pays, code, taux_conversion) values('36dd7ec8-711c-4038-8ab9-625e5a663c68','Bahrain', 'BHR', 0.37758333333);
 insert into taux_change(id, pays, code, taux_conversion) values('ff090ee2-b46b-4fb9-9466-38b5e8d419cd','Bangladesh', 'BGD', 84.90718811227);
 insert into taux_change(id, pays, code, taux_conversion) values('f370944f-2641-49f3-b886-f284e690cee6','Barbados', 'BRB', 2.01839137157);
@@ -36,14 +35,10 @@ insert into taux_change(id, pays, code, taux_conversion) values('f7bd479e-ef15-4
 insert into taux_change(id, pays, code, taux_conversion) values('5f323d88-8164-4528-ac37-20b8e7e6eb73','Chile', 'CHL', 810.23062513556);
 insert into taux_change(id, pays, code, taux_conversion) values('88b5fb78-a5c4-4a15-b056-ef69e6b2d49b','China', 'CHN', 7.0323552771);
 insert into taux_change(id, pays, code, taux_conversion) values('dfd3ac54-3dd0-4127-b2d0-471af41ef660','Colombia', 'COL', 3684.67148685838);
-insert into taux_change(id, pays, code, taux_conversion) values('0c60932d-6924-4ad0-84d7-ffc379ced63a','Commodity-exporting EMDE', 'EDE', 6609.9329841091);
-insert into taux_change(id, pays, code, taux_conversion) values('d3c3f9b1-2545-42c6-a0d4-c1fb764cdb52','Commodity-importing EMDE', 'EDI', 257.11495136514);
-insert into taux_change(id, pays, code, taux_conversion) values('d0b02178-1c09-45e0-8a8d-7ca88f255d21','Commodity-importing EMDE excluding China', 'EDX', 506.90755808175);
 insert into taux_change(id, pays, code, taux_conversion) values('240b0f03-f1d8-43c1-bb6b-a980f7c52006','Comoros', 'COM', 444.91711181893);
-insert into taux_change(id, pays, code, taux_conversion) values('9781fd76-cdd1-4f2c-9ed7-a4929ecb1a6a','Congo Dem. Rep.', 'COD', 1767.71560916127);
-insert into taux_change(id, pays, code, taux_conversion) values('60f75247-e4d2-42ab-beea-d7dba5679f9f','Congo Rep.', 'COG', 1741.69833333333);
+insert into taux_change(id, pays, code, taux_conversion) values('9781fd76-cdd1-4f2c-9ed7-a4929ecb1a6a','Congo', 'COD', 1767.71560916127);
 insert into taux_change(id, pays, code, taux_conversion) values('cd7bc942-b436-4847-8499-c69c8103ca71','Costa Rica', 'CRI', 572.87983606921);
-insert into taux_change(id, pays, code, taux_conversion) values('c51feb6d-a2aa-4000-9fc5-f5d249c37c59','Cote d Ivoire', 'CIV', 594.14192695589);
+insert into taux_change(id, pays, code, taux_conversion) values('c51feb6d-a2aa-4000-9fc5-f5d249c37c59','Cote Ivoire', 'CIV', 594.14192695589);
 insert into taux_change(id, pays, code, taux_conversion) values('d4e1df04-87a0-4dd4-9526-5c26843c08d9','Croatia', 'HRV', 6.80766130063);
 insert into taux_change(id, pays, code, taux_conversion) values('e74d815b-06e5-4424-8fbe-3f14074a3850','Cyprus', 'CYP', 0.90334325267);
 insert into taux_change(id, pays, code, taux_conversion) values('c51657a4-f0f4-4f4a-a9dd-82f8794efc74','Czech Republic', 'CZE', 23.83033548694);
@@ -54,14 +49,14 @@ insert into taux_change(id, pays, code, taux_conversion) values('9845780d-c913-4
 insert into taux_change(id, pays, code, taux_conversion) values('746d9bdf-6dcd-4c2d-bc9a-ebb4957a294c','Dominican Republic', 'DOM', 55.43272490701);
 insert into taux_change(id, pays, code, taux_conversion) values('4d3e6f04-77ae-4c3a-bba4-654e37f628c3','East Asia & Pacific developing', 'EAP', 1780.15597127956);
 insert into taux_change(id, pays, code, taux_conversion) values('1ae50cde-b439-40d4-868b-0ab3fdecf128','Ecuador', 'ECU', 1);
-insert into taux_change(id, pays, code, taux_conversion) values('8b4ce319-520d-48e2-ae82-29d8e3d1c407','Egypt Arab Rep.', 'EGY', 15.85593687182);
+insert into taux_change(id, pays, code, taux_conversion) values('8b4ce319-520d-48e2-ae82-29d8e3d1c407','Egypt Arab', 'EGY', 15.85593687182);
 insert into taux_change(id, pays, code, taux_conversion) values('d3166768-6a0f-4fde-8e04-01779cc4022e','El Salvador', 'SLV', 8.75);
-insert into taux_change(id, pays, code, taux_conversion) values('14a8d16b-6f50-422d-b665-656c71c2c5b9','EMDE East Asia and Pacific', 'EAA', 1777.01364746237);
-insert into taux_change(id, pays, code, taux_conversion) values('0ab6a5b5-3f0c-4f2a-92bb-b6d9baf8beb6','EMDE Europe and Central Asia', 'ECH', 337.31381814042);
-insert into taux_change(id, pays, code, taux_conversion) values('a6d72c06-4a95-448d-bd61-2f660c2b7bf3','EMDE Latin America and the Caribbean', 'LAP', 7616.10384387231);
-insert into taux_change(id, pays, code, taux_conversion) values('5339bfba-c66d-4789-bbbb-6ecd26576ee6','EMDE Middle East and North Africa', 'MNH', 9392.83359337606);
-insert into taux_change(id, pays, code, taux_conversion) values('797fe09c-d635-496a-87c3-5be9fa31ba62','EMDE South Asia', 'SAP', 85.6693573799);
-insert into taux_change(id, pays, code, taux_conversion) values('fe49271c-39d8-484a-9f32-05f2e2d0dcb6','EMDE Sub-Saharan Africa', 'SSP', 472.3478842561);
+insert into taux_change(id, pays, code, taux_conversion) values('14a8d16b-6f50-422d-b665-656c71c2c5b9','East Asia and Pacific', 'EAA', 1777.01364746237);
+insert into taux_change(id, pays, code, taux_conversion) values('0ab6a5b5-3f0c-4f2a-92bb-b6d9baf8beb6','Europe and Central Asia', 'ECH', 337.31381814042);
+insert into taux_change(id, pays, code, taux_conversion) values('a6d72c06-4a95-448d-bd61-2f660c2b7bf3','Latin America and the Caribbean', 'LAP', 7616.10384387231);
+insert into taux_change(id, pays, code, taux_conversion) values('5339bfba-c66d-4789-bbbb-6ecd26576ee6','Middle East and North Africa', 'MNH', 9392.83359337606);
+insert into taux_change(id, pays, code, taux_conversion) values('797fe09c-d635-496a-87c3-5be9fa31ba62','South Asia', 'SAP', 85.6693573799);
+insert into taux_change(id, pays, code, taux_conversion) values('fe49271c-39d8-484a-9f32-05f2e2d0dcb6','Sub-Saharan Africa', 'SSP', 472.3478842561);
 insert into taux_change(id, pays, code, taux_conversion) values('46c1fad9-071a-40dd-b0dd-e8cb62eb5fdd','Emerging Market and Developing Economies', 'EMD', 3193.13137800696);
 insert into taux_change(id, pays, code, taux_conversion) values('fbd5b7b8-f84c-4c47-9607-029310aca50c','Equatorial Guinea', 'GNQ', 595.63333333333);
 insert into taux_change(id, pays, code, taux_conversion) values('400a2eea-7af0-4555-84cc-304b1c9ed477','Eritrea', 'ERI', 15.075);
@@ -72,7 +67,7 @@ insert into taux_change(id, pays, code, taux_conversion) values('981b972b-a061-4
 insert into taux_change(id, pays, code, taux_conversion) values('43a98653-7e31-4e3c-84ce-7ede3935e3c6','Finland', 'FIN', 0.90334325267);
 insert into taux_change(id, pays, code, taux_conversion) values('e629fe6c-3a10-4439-a685-ac9ed409bcc6','France', 'FRA', 0.90334325267);
 insert into taux_change(id, pays, code, taux_conversion) values('7a899a24-8ed5-4b92-bce1-64ec905db549','Gabon', 'GAB', 595.63333333333);
-insert into taux_change(id, pays, code, taux_conversion) values('3ec70800-61a2-42e0-a6c9-58354ddc538a','Gambia The', 'GMB', 51.37125651866);
+insert into taux_change(id, pays, code, taux_conversion) values('3ec70800-61a2-42e0-a6c9-58354ddc538a','Gambia', 'GMB', 51.37125651866);
 insert into taux_change(id, pays, code, taux_conversion) values('955fe739-1427-4230-924b-8f958cd1f135','Georgia', 'GEO', 3.0418743775);
 insert into taux_change(id, pays, code, taux_conversion) values('070605a3-c8ae-4e20-9575-b67bbef61543','Germany', 'DEU', 0.90334325267);
 insert into taux_change(id, pays, code, taux_conversion) values('b92e220f-da72-4805-9224-f705bece9bcf','Ghana', 'GHA', 5.68118997988);
@@ -90,7 +85,7 @@ insert into taux_change(id, pays, code, taux_conversion) values('4c1f9625-2035-4
 insert into taux_change(id, pays, code, taux_conversion) values('0a9e92aa-4d90-4014-81e9-6c84efa1825e','Iceland', 'ISL', 135.31615464905);
 insert into taux_change(id, pays, code, taux_conversion) values('6d332866-4984-43df-899f-5bf13bccaf13','India', 'IND', 74.28652112866);
 insert into taux_change(id, pays, code, taux_conversion) values('f1551ea6-ccdd-4446-9300-d0f1c371894f','Indonesia', 'IDN', 14577.2893968051);
-insert into taux_change(id, pays, code, taux_conversion) values('6a905c56-adf1-4f7b-8e6f-33bf56da26a6','Iran Islamic Rep.', 'IRN', 47018.975755343);
+insert into taux_change(id, pays, code, taux_conversion) values('6a905c56-adf1-4f7b-8e6f-33bf56da26a6','Iran', 'IRN', 47018.975755343);
 insert into taux_change(id, pays, code, taux_conversion) values('6a0b937f-594b-47e8-a7f9-d7e1f0d9d0a8','Ireland', 'IRL', 0.90334325267);
 insert into taux_change(id, pays, code, taux_conversion) values('6fb40f33-281f-435c-9c5f-f2516bf2eacf','Israel', 'ISR', 3.49106049214);
 insert into taux_change(id, pays, code, taux_conversion) values('db08bb6f-6a8b-4f1f-a208-8beedea16b7c','Italy', 'ITA', 0.90334325267);
@@ -100,10 +95,10 @@ insert into taux_change(id, pays, code, taux_conversion) values('ca8265ab-3f0b-4
 insert into taux_change(id, pays, code, taux_conversion) values('756f60b5-8b56-402d-9a44-aae62040f9f4','Kazakhstan', 'KAZ', 405.89552747764);
 insert into taux_change(id, pays, code, taux_conversion) values('8cf44e5b-4c4b-4847-82a9-2b9432717bac','Kenya', 'KEN', 104.70195199037);
 insert into taux_change(id, pays, code, taux_conversion) values('912b15d5-2c66-42cb-9a80-057b6efbfc29','Kiribati', 'KIR', 1.536672);
-insert into taux_change(id, pays, code, taux_conversion) values('4ba89c58-052a-4b97-a7c8-469a2a29532d','Korea Rep.', 'KOR', 1205.55491492671);
+insert into taux_change(id, pays, code, taux_conversion) values('4ba89c58-052a-4b97-a7c8-469a2a29532d','Korea', 'KOR', 1205.55491492671);
 insert into taux_change(id, pays, code, taux_conversion) values('e614eaca-1242-452e-8391-39f5dbff5757','Kuwait', 'KWT', 0.30909555236);
 insert into taux_change(id, pays, code, taux_conversion) values('82940892-6a4d-466b-b513-249580fe8152','Kyrgyz Republic', 'KGZ', 74.86116921926);
-insert into taux_change(id, pays, code, taux_conversion) values('af7ccda3-f412-4f68-b01a-4e255a304f3a','Lao PDR', 'LAO', 8913.7258);
+insert into taux_change(id, pays, code, taux_conversion) values('af7ccda3-f412-4f68-b01a-4e255a304f3a','Lao', 'LAO', 8913.7258);
 insert into taux_change(id, pays, code, taux_conversion) values('6785fa83-e3bb-4396-b1c7-198be3f31b71','Latin America & Caribbean developing', 'LAC', 8075.14822460405);
 insert into taux_change(id, pays, code, taux_conversion) values('1774378e-6f94-41b6-9a5a-4a28edb228c8','Latvia', 'LVA', 0.90334325267);
 insert into taux_change(id, pays, code, taux_conversion) values('3b01db99-42c7-479b-af70-f7092c2e2068','Lebanon', 'LBN', 1511.69719631872);
@@ -114,7 +109,7 @@ insert into taux_change(id, pays, code, taux_conversion) values('14214089-9bcd-4
 insert into taux_change(id, pays, code, taux_conversion) values('88c807af-7f1d-4c6b-98a7-ed64050a14fb','Low Income Countries', 'LIC', 1020.98062403419);
 insert into taux_change(id, pays, code, taux_conversion) values('72bc66f5-96b7-4cfc-b1e4-e1f3447b6e82','Lower Middle Income Countries', 'LMC', 996.97648800632);
 insert into taux_change(id, pays, code, taux_conversion) values('16920e70-3a4f-481a-95d1-e8dfe732cee4','Luxembourg', 'LUX', 0.90334325267);
-insert into taux_change(id, pays, code, taux_conversion) values('a213235b-3a2a-46e0-84f0-49e14e99ee45','Macedonia FYR', 'MKD', 55.66746778454);
+insert into taux_change(id, pays, code, taux_conversion) values('a213235b-3a2a-46e0-84f0-49e14e99ee45','Macedonia', 'MKD', 55.66746778454);
 insert into taux_change(id, pays, code, taux_conversion) values('5103a144-0e8d-47a2-80b4-496a08c85cba','Madagascar', 'MDG', 3729.244975698);
 insert into taux_change(id, pays, code, taux_conversion) values('b63249d2-3f38-4f89-b20a-80ea5a0e9544','Malawi', 'MWI', 733.10941081848);
 insert into taux_change(id, pays, code, taux_conversion) values('7e50efab-13d1-467a-bb95-2ea5910248e4','Malaysia', 'MYS', 4.25357467412);
@@ -124,8 +119,8 @@ insert into taux_change(id, pays, code, taux_conversion) values('0ce1f803-b97c-4
 insert into taux_change(id, pays, code, taux_conversion) values('c8414137-da1a-49b2-8f54-68c1b160bdc1','Mauritania', 'MRT', 357);
 insert into taux_change(id, pays, code, taux_conversion) values('02ac4494-6936-4695-986b-210e8d593d05','Mauritius', 'MUS', 38.87855336701);
 insert into taux_change(id, pays, code, taux_conversion) values('f3dd80dd-75d6-40ac-8b6b-e5551ffb1595','Mexico', 'MEX', 21.81119592021);
-insert into taux_change(id, pays, code, taux_conversion) values('c6f58c36-a358-408f-8fad-ae225ed39742','Micronesia Fed. Sts.', 'FSM', 1);
-insert into taux_change(id, pays, code, taux_conversion) values('81ed9c50-4638-4f43-9123-a1830c01d3bc','Middle East & N. Africa developing', 'MNA', 17505.7539155105);
+insert into taux_change(id, pays, code, taux_conversion) values('c6f58c36-a358-408f-8fad-ae225ed39742','Micronesia', 'FSM', 1);
+insert into taux_change(id, pays, code, taux_conversion) values('81ed9c50-4638-4f43-9123-a1830c01d3bc','Middle East & North Africa developing', 'MNA', 17505.7539155105);
 insert into taux_change(id, pays, code, taux_conversion) values('3b43515b-9c68-4ad8-b28e-518e69ee0b89','Middle Income Countries', 'MIC', 3582.82678268904);
 insert into taux_change(id, pays, code, taux_conversion) values('2ad9b682-01b9-44ec-94f4-11016ae650eb','Moldova', 'MDA', 17.58458006376);
 insert into taux_change(id, pays, code, taux_conversion) values('f72a553f-d712-4d6f-a097-32774c4c5f7a','Mongolia', 'MNG', 2778.73824497862);
@@ -196,6 +191,6 @@ insert into taux_change(id, pays, code, taux_conversion) values('eb6fe1c0-43db-4
 insert into taux_change(id, pays, code, taux_conversion) values('bc5cae15-a619-404a-b0a2-a58130e7e5eb','Vanuatu', 'VUT', 117.96043668456);
 insert into taux_change(id, pays, code, taux_conversion) values('079eec63-ddc5-46ee-a715-184a5c3cfd77','Vietnam', 'VNM', 23286.352490746);
 insert into taux_change(id, pays, code, taux_conversion) values('52c840da-1c72-4cc2-932a-06ca59cfa26e','World', 'WLT', 1140.1400355285);
-insert into taux_change(id, pays, code, taux_conversion) values('dcb68449-b662-4fff-81e7-eeab8657550f','Yemen Rep.', 'YEM', 250.23926014288);
+insert into taux_change(id, pays, code, taux_conversion) values('dcb68449-b662-4fff-81e7-eeab8657550f','Yemen', 'YEM', 250.23926014288);
 insert into taux_change(id, pays, code, taux_conversion) values('39fb58b3-3538-418f-ac16-577c966614bc','Zambia', 'ZMB', 16.95765744288);
 insert into taux_change(id, pays, code, taux_conversion) values('a7d9577f-cefd-42d9-9020-713c59fca270','Zimbabwe', 'ZWE', 29.31248508062);

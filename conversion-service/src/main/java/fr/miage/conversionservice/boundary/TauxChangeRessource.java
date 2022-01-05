@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TauxChangeRessource extends JpaRepository<TauxChange, String> {
 
-    TauxChange findByCode(String code);
+    TauxChange findByPays(String pays);
 }

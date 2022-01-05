@@ -1,18 +1,40 @@
 services:
 
-  postgres:
-    container_name: postgres_container
+  postgres1:
+    container_name: postgres_keycloak
     image: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_MULTIPLE_DATABASES: revolut, keycloak, conversion
+      POSTGRES_DB: keycloak
     volumes:
-      - ./db:/docker-entrypoint-initdb.d
-      - ./data:/data/postgres
+      - ./data/keycloak:/data/postgres
     ports:
       - "5432:5432"
+  postgres2:
+    container_name: postgres_revolut
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: revolut
+    volumes:
+      - ./data/revolut:/data/postgres
+    ports:
+      - "5433:5432"
+  postgres3:
+    container_name: postgres_conversion
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: conversion
+    volumes:
+      - ./data/conversion:/data/postgres
+    ports:
+      - "5434:5432"
   keycloak:
+    container_name: keycloak
     image: quay.io/keycloak/keycloak:latest
     volumes:
       - ./imports:/opt/jboss/keycloak/imports
@@ -29,7 +51,7 @@ services:
     ports:
       - 8082:8080
     depends_on:
-      - postgres
+      - postgres1
 
 volumes:
   data:
