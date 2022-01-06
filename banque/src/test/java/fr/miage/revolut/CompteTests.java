@@ -20,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -51,7 +52,7 @@ class CompteTests {
 
 	@Test
 	public void getOne() {
-		Compte compte = new Compte(UUID.randomUUID().toString(),"Nom", "Prénom", LocalDate.parse("12/11/1999", formatter), "France", "FR98156470", "0951366785", IbanGenerator.generate("FR"), 0);
+		Compte compte = new Compte(UUID.randomUUID().toString(),"Nom", "Prénom", LocalDate.parse("12/11/1999", formatter), "France", "FR98156470", "0951366785", IbanGenerator.generate("FR"), BigDecimal.valueOf(0));
 		ressource.save(compte);
 		Response response = when().get("/comptes/"+compte.getUuid())
 				.then()

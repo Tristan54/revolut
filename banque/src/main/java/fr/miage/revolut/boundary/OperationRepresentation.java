@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -51,9 +52,26 @@ public class OperationRepresentation {
     @Transactional
     public ResponseEntity<?> createOperation(@RequestBody @Valid OperationInput operation, @PathVariable("compteId") String compteId){
 
-        Operation saved = service.createOperation(operation, compteId);
-        URI location = linkTo(OperationRepresentation.class, compteId).slash(saved.getUuid()).toUri();
-        return ResponseEntity.created(location).build();
+        Optional<Operation> saved = service.createOperation(operation, compteId);
+
+        if(saved.isPresent()){
+            URI location = linkTo(OperationRepresentation.class, compteId).slash(saved.get().getUuid()).toUri();
+            return ResponseEntity.created(location).build();
+        }else {
+            return ResponseEntity.badRequest().build();
+        }
+
+    }
+
+    @PatchMapping("/deposer/{montant}")
+    @PreAuthorize(value = "authentication.name.equals(#compteId)")
+    @Transactional
+    public ResponseEntity<?> deposer(@PathVariable("compteId") String compteId, @Valid @PathVariable("montant") BigDecimal montant){
+
+        boolean fait = service.deposer(montant, compteId);
+
+        return fait ? ResponseEntity.noContent().build() :  ResponseEntity.badRequest().build();
+
     }
 
 }

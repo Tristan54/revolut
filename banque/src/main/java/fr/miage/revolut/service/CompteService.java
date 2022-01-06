@@ -24,6 +24,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +53,7 @@ public class CompteService {
                 compte.getNumPasseport(),
                 compte.getNumTel(),
                 IbanGenerator.generate(compte.getPays()),
-                0
+                BigDecimal.valueOf(0)
         );
 
         return ressource.save(compte2Save);
@@ -115,5 +116,9 @@ public class CompteService {
         AuthzClient authzClient = AuthzClient.create(configuration);
 
         return authzClient.obtainAccessToken(compte.getNumTel(), compte.getMotDePasse());
+    }
+
+    public Compte update(Compte compte) {
+        return ressource.save(compte);
     }
 }

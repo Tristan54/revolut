@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -22,5 +23,5 @@ public class CompteOutput {
     private String numPasseport;
     private String numTel;
     private String iban;
-    private double montant;
+    private BigDecimal montant;
 }

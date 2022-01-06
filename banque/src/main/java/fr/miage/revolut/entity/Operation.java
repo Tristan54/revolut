@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,8 +21,8 @@ public class Operation {
     private String uuid;
     private LocalDateTime date;
     private String libelle;
-    private double montant;
-    private double taux;
+    private BigDecimal montant;
+    private BigDecimal taux;
     private String nomCrediteur;
     private String ibanCrediteur;
     private String nomDebiteur;

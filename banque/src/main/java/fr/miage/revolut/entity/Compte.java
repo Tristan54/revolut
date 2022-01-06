@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -28,5 +28,15 @@ public class Compte  {
     private String numTel;
     @Column(unique=true)
     private String iban;
-    private double montant;
+    private BigDecimal montant;
+
+    public void credit(BigDecimal montant){
+        this.montant = this.montant.add(montant);
+    }
+
+    public void debit(BigDecimal montant){
+        this.montant = this.montant.subtract(montant);
+    }
+
+
 }

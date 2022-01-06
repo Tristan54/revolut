@@ -19,6 +19,10 @@ public class ConvertionRepresentation {
 
     @GetMapping(value = "/conversion/source/{source}/cible/{cible}")
     public ResponseEntity<?> converstion(@PathVariable String source, @PathVariable String cible){
+
+        source = source.replaceAll("%20", " ");
+        cible = cible.replaceAll("%20", " ");
+
         TauxChange tauxChangeSource = ressource.findByPays(source);
         TauxChange tauxChangeCible = ressource.findByPays(cible);
 

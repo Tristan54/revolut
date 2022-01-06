@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Setter
@@ -17,8 +18,8 @@ public class OperationOuput {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime date;
     private String libelle;
-    private double montant;
-    private double taux;
+    private BigDecimal montant;
+    private BigDecimal taux;
     private String nomCrediteur;
     private String ibanCrediteur;
     private String nomDebiteur;
