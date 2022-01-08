@@ -1,6 +1,7 @@
 package fr.miage.revolut.dto.output;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import fr.miage.revolut.entity.Compte;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +23,6 @@ public class OperationOuput {
     private BigDecimal taux;
     private String nomCrediteur;
     private String ibanCrediteur;
-    private String nomDebiteur;
-    private String ibanDebiteur;
     private String categorie;
     private String pays;
 }

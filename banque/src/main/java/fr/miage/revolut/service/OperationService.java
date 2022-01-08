@@ -5,11 +5,13 @@ import fr.miage.revolut.dto.input.OperationInput;
 import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.entity.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Executable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,6 +25,11 @@ public class OperationService {
 
     public Optional<Operation> findById(String id){
         return ressource.findById(id);
+    }
+
+    public Iterable<Operation> findAll(Specification<Operation> spec){
+        //Compte compte = compteService.findById(compteId).get();
+        return ressource.findAll(spec);
     }
 
     public Operation save(Operation compte){
@@ -52,14 +59,13 @@ public class OperationService {
         // creation de l'opération
         Operation operation2Save = new Operation(
                 UUID.randomUUID().toString(),
+                compteId,
                 LocalDateTime.now(),
                 operation.getLibelle(),
                 operation.getMontant().multiply(taux),
                 taux,
                 operation.getNomCrediteur(),
                 operation.getIbanCrediteur(),
-                compte.getNom(),
-                compte.getIban(),
                 operation.getCategorie(),
                 operation.getPays()
         );

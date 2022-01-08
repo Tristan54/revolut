@@ -5,11 +5,14 @@ import fr.miage.revolut.dto.input.OperationInput;
 import fr.miage.revolut.dto.validator.OperationValidator;
 import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.entity.Operation;
+import fr.miage.revolut.filter.OperationSpecificationsBuilder;
 import fr.miage.revolut.service.CompteService;
 import fr.miage.revolut.service.OperationService;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +21,11 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -37,6 +43,22 @@ public class OperationRepresentation {
         this.service = service;
         this.assembler = assembler;
         this.validator = validator;
+    }
+
+    @GetMapping
+    @PreAuthorize(value = "authentication.name.equals(#compteId)")
+    public ResponseEntity<?> getAllOperations(@PathVariable("compteId") String compteId, @Nullable @RequestParam(value = "filtres") String filtres){
+        OperationSpecificationsBuilder builder = new OperationSpecificationsBuilder();
+        Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
+        Matcher matcher = pattern.matcher(filtres + ",");
+
+        builder.with("compteUuid", ":", compteId);
+        while (matcher.find()) {
+            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
+        }
+
+        Specification<Operation> spec = builder.build();
+        return ResponseEntity.ok(assembler.toCollectionModel(service.findAll(spec), compteId));
     }
 
     @GetMapping(value="/{operationId}")

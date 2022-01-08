@@ -5,9 +5,15 @@ import fr.miage.revolut.dto.output.OperationOuput;
 import fr.miage.revolut.entity.Operation;
 import fr.miage.revolut.mappers.OperationMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -21,6 +27,16 @@ public class OperationAssembler implements RepresentationModelAssembler<Operatio
 
     public EntityModel<OperationOuput> toModelWithAccount(Operation operation, String compteId) {
         return EntityModel.of(mapper.toDto(operation), linkTo(methodOn(OperationRepresentation.class).getOneOperation(compteId, operation.getUuid())).withSelfRel());
+    }
+
+    public CollectionModel<EntityModel<OperationOuput>> toCollectionModel(Iterable<? extends Operation> operations, String compteId) {
+        List<EntityModel<OperationOuput>> operationsModel = StreamSupport
+                .stream(operations.spliterator(), false)
+                .map(o -> toModelWithAccount(o, compteId))
+                .collect(Collectors.toList());
+        return CollectionModel.of(operationsModel,
+                linkTo(methodOn(OperationRepresentation.class)
+                        .getAllOperations(compteId, null)).withSelfRel());
     }
 
     @Override
