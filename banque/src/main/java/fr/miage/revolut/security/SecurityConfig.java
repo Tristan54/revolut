@@ -1,5 +1,7 @@
 package fr.miage.revolut.security;
 
+import org.keycloak.adapters.KeycloakConfigResolver;
+import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakSecurityComponents;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
@@ -20,11 +22,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
+import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
 @Configuration
-@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
@@ -36,23 +39,27 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().sessionManagement().
                 sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                 .antMatchers("/comptes").permitAll()
+                .antMatchers("/paiements").permitAll()
                 .antMatchers("/comptes/connexion").permitAll()
                 .antMatchers("/comptes/**").authenticated()
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
     }
 
+    @Bean
     @Override
     protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
-        return new NullAuthenticatedSessionStrategy();
+        return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
+    }
+
+    @Bean
+    public KeycloakConfigResolver keycloakConfigResolver() {
+        return new KeycloakSpringBootConfigResolver();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        KeycloakAuthenticationProvider keycloakAuthenticationProvider =
-                keycloakAuthenticationProvider();
-
+        KeycloakAuthenticationProvider keycloakAuthenticationProvider = keycloakAuthenticationProvider();
         keycloakAuthenticationProvider.setGrantedAuthoritiesMapper(new SimpleAuthorityMapper());
-
         auth.authenticationProvider(keycloakAuthenticationProvider);
     }
 
@@ -94,12 +101,5 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         registrationBean.setEnabled(false);
 
         return registrationBean;
-    }
-
-    @Bean
-    @Override
-    @ConditionalOnMissingBean(HttpSessionManager.class)
-    protected HttpSessionManager httpSessionManager() {
-        return new HttpSessionManager();
     }
 }

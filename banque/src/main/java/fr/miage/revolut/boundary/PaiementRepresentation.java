@@ -1,12 +1,8 @@
 package fr.miage.revolut.boundary;
 
-import fr.miage.revolut.assembler.CarteAssembler;
-import fr.miage.revolut.dto.input.CarteInput;
-import fr.miage.revolut.dto.input.CarteUpdate;
-import fr.miage.revolut.dto.validator.CarteValidator;
-import fr.miage.revolut.entity.Carte;
+import fr.miage.revolut.dto.input.PaiementInput;
 import fr.miage.revolut.entity.Operation;
-import fr.miage.revolut.service.CarteService;
+import fr.miage.revolut.service.PaiementService;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,39 +11,30 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.net.URI;
-import java.util.Optional;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping(value="/paiement", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/paiements", produces = MediaType.APPLICATION_JSON_VALUE)
 @ExposesResourceFor(Operation.class)
 public class PaiementRepresentation {
 
 
-    private final CarteService service;
-    private final CarteAssembler assembler;
-    private final CarteValidator validator;
+    private final PaiementService service;
 
-    public PaiementRepresentation(CarteService service, CarteAssembler assembler, CarteValidator validator) {
+    public PaiementRepresentation(PaiementService service) {
         this.service = service;
-        this.assembler = assembler;
-        this.validator = validator;
     }
 
     @PostMapping
     @PreAuthorize(value = "authentication.name.equals(#compteId)")
     @Transactional
-    public ResponseEntity<?> createCarte(@RequestBody @Valid CarteInput carte, @PathVariable("compteId") String compteId){
+    public ResponseEntity<?> payer(@RequestBody @Valid PaiementInput paiement, @PathVariable("compteId") String compteId){
 
-        Optional<Carte> saved = service.createCarte(carte, compteId);
+        String res = service.payer(paiement, compteId);
 
-        if(saved.isPresent()){
-            URI location = linkTo(PaiementRepresentation.class, compteId).slash(saved.get().getUuid()).toUri();
-            return ResponseEntity.created(location).build();
+        if(res.equals("fait")){
+            return ResponseEntity.ok().build();
         }else {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(res);
         }
 
     }

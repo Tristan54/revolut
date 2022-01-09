@@ -1,14 +1,13 @@
 package fr.miage.revolut.boundary;
 
+import fr.miage.revolut.assembler.CompteAssembler;
+import fr.miage.revolut.dto.input.CompteInput;
 import fr.miage.revolut.dto.input.CompteSignIn;
 import fr.miage.revolut.entity.Compte;
-import fr.miage.revolut.dto.input.CompteInput;
-import fr.miage.revolut.dto.validator.CompteValidator;
-import fr.miage.revolut.assembler.CompteAssembler;
 import fr.miage.revolut.service.CompteService;
 import org.keycloak.representations.AccessTokenResponse;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.hateoas.server.ExposesResourceFor;
@@ -22,7 +21,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.ws.rs.core.HttpHeaders;
 import java.net.URI;
-import java.util.*;
+import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -47,6 +46,7 @@ public class CompteRepresentation {
     @GetMapping(value="/{compteId}")
     @PreAuthorize(value = "authentication.name.equals(#id)")
     public ResponseEntity<?> getOneCompte(@PathVariable("compteId") String id) {
+        System.out.println("ici");
         return Optional.ofNullable(service.findById(id)).filter(Optional::isPresent)
                 .map(c -> ResponseEntity.ok(assembler.toModel(c.get())))
                 .orElse(ResponseEntity.notFound().build());
@@ -55,7 +55,7 @@ public class CompteRepresentation {
     @PostMapping()
     @Transactional
     public ResponseEntity<?> createCompte(@RequestBody @Valid CompteInput compte) {
-
+        System.out.println("ici 2");
         String id = service.createCompte(compte);
 
         if(id.isEmpty()){
@@ -73,9 +73,16 @@ public class CompteRepresentation {
     @PostMapping(path = "/connexion")
     public ResponseEntity<?> connexion(@RequestBody @Valid CompteSignIn compte) {
 
-        AccessTokenResponse response = service.connexion(compte);
+        AccessTokenResponse response;
+        try {
+            response = service.connexion(compte);
+            return ResponseEntity.ok(response);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
 
-        return ResponseEntity.ok(response);
+
+
     }
 
 }

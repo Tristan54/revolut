@@ -11,7 +11,7 @@ import java.util.Set;
 @Service
 public class OperationValidator {
 
-    private Validator validator;
+    private final Validator validator;
 
     OperationValidator(Validator validator) {
         this.validator = validator;

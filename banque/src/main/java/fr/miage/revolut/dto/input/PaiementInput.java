@@ -19,14 +19,16 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class PaiementInput {
 
-    @NotNull
+    @NotBlank(message = "Il faut renseigner le numéro de la carte")
     @Size(min = 16, max = 16, message = "Numéro de la carte invalide")
     private String numeroCarte;
 
-    @Range(min = 3, max = 3, message = "Cryptogramme de la carte invalide")
+    @Range(min = 3, max = 3, message = "Cryptogramme de la carcryptogrammete invalide")
+    @NotBlank(message = "Il faut renseigner le code de la carte")
     private int cryptogrammeCarte;
 
     @Range(min = 4, max = 4, message = "Code de carte invalide")
+    @NotBlank(message = "Il faut renseigner le code de la carte")
     private int codeCarte;
 
     @NotBlank(message = "Nom du pays invalide")
@@ -39,16 +41,16 @@ public class PaiementInput {
     private String ibanCommercant;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-    @NotNull(message = "Date invalide")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @NotNull(message = "Il faut renseigner une date et une heure")
     private String date;
 
-    @NotBlank(message = "Libellé invalide")
-    private String libelle;
-
     @Size(min = 0, message = "Montant invalide")
+    @NotBlank(message = "Il faut renseigner un montant")
     private BigDecimal montant;
 
     @NotNull(message = "Veuillez renseigner si la carte est sans contact")
     private boolean sansContact;
+
+    private String categorie;
 }

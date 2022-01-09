@@ -1,7 +1,6 @@
 package fr.miage.revolut.dto.output;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import fr.miage.revolut.entity.Compte;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

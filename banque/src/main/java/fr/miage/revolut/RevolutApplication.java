@@ -14,8 +14,4 @@ public class RevolutApplication {
 		SpringApplication.run(RevolutApplication.class, args);
 	}
 
-	@Bean
-	public KeycloakSpringBootConfigResolver keycloakConfigResolver() {
-		return new KeycloakSpringBootConfigResolver();
-	}
 }

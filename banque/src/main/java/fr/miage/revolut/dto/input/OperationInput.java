@@ -20,6 +20,7 @@ public class OperationInput {
     private String libelle;
 
     @DecimalMin(value = "0.0", message = "Montant invalide")
+    @NotBlank(message = "Il faut renseigner le montant de l'opération")
     private BigDecimal montant;
 
     @NotBlank(message = "Nom du créditeur invalide")

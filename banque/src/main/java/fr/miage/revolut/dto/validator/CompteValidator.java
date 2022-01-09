@@ -11,9 +11,9 @@ import java.util.Set;
 @Service
 public class CompteValidator {
 
-    private Validator validator;
+    private final Validator validator;
 
-    CompteValidator(Validator validator) {
+    public CompteValidator(Validator validator) {
         this.validator = validator;
     }
 

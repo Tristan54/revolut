@@ -8,11 +8,8 @@ import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.mappers.CompteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.stereotype.Component;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
-
-
-import java.util.HashMap;
+import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
