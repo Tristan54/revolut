@@ -1,5 +1,6 @@
 package fr.miage.revolut.assembler;
 
+import fr.miage.revolut.boundary.CarteRepresentation;
 import fr.miage.revolut.boundary.CompteRepresentation;
 import fr.miage.revolut.boundary.OperationRepresentation;
 import fr.miage.revolut.dto.output.CompteOutput;
@@ -27,7 +28,10 @@ public class CompteAssembler implements RepresentationModelAssembler<Compte, Ent
         return EntityModel.of(mapper.toDto(compte),
                 linkTo(methodOn(CompteRepresentation.class).getOneCompte(compte.getUuid())).withSelfRel(),
                 linkTo(methodOn(OperationRepresentation.class)
-                        .getAllOperations(compte.getUuid(), null)).withRel("collection"));
+                        .getAllOperations(compte.getUuid(), null)).withRel("collection"),
+                linkTo(methodOn(CarteRepresentation.class)
+                        .getAllCartes(compte.getUuid())).withRel("collection"));
+
     }
 
 }

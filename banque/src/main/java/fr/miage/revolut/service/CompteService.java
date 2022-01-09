@@ -52,7 +52,7 @@ public class CompteService {
                 compte.getPays(),
                 compte.getNumPasseport(),
                 compte.getNumTel(),
-                IbanGenerator.generate(compte.getPays()),
+                Generator.generateIban(compte.getPays()),
                 BigDecimal.valueOf(0)
         );
 

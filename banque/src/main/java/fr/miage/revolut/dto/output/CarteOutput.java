@@ -1,24 +1,20 @@
-package fr.miage.revolut.entity;
+package fr.miage.revolut.dto.output;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-@Entity
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Carte {
+public class CarteOutput {
 
-    @Id
-    private String uuid;
     private String numero;
     private int code;
     private int cryptogramme;
@@ -27,8 +23,4 @@ public class Carte {
     private boolean localisation;
     private boolean sansContact;
     private boolean virtuelle;
-
-    @ManyToOne
-    @JoinColumn(name = "compte_uuid", referencedColumnName = "uuid")
-    private Compte compte;
 }

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OperationOuput {
+public class OperationOutput {
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime date;

@@ -11,3 +11,6 @@ faire attention aux opérations
 2 opérations différentes :
  - paiement / paiement en ligne
  - virement / versement
+
+Pour les tests de validation regarder intervenant service patch
+Que faire quand une carte virtuelle est utilisée ?? 

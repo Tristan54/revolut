@@ -28,7 +28,6 @@ public class OperationService {
     }
 
     public Iterable<Operation> findAll(Specification<Operation> spec){
-        //Compte compte = compteService.findById(compteId).get();
         return ressource.findAll(spec);
     }
 
@@ -46,7 +45,6 @@ public class OperationService {
         }catch (Exception e){
             return Optional.empty();
         }
-        System.out.println(taux);
 
         // verification du montant
         if(compte.getMontant().compareTo(operation.getMontant()) < 0){

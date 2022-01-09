@@ -38,12 +38,10 @@ public class CompteRepresentation {
 
     private final CompteService service;
     private final CompteAssembler assembler;
-    private final CompteValidator validator;
 
-    public CompteRepresentation(CompteService service, CompteAssembler assembler, CompteValidator validator) {
+    public CompteRepresentation(CompteService service, CompteAssembler assembler) {
         this.service = service;
         this.assembler = assembler;
-        this.validator = validator;
     }
 
     @GetMapping(value="/{compteId}")

@@ -8,7 +8,7 @@ import fr.miage.revolut.boundary.CompteRessource;
 import fr.miage.revolut.dto.input.CompteInput;
 import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.service.CompteService;
-import fr.miage.revolut.service.IbanGenerator;
+import fr.miage.revolut.service.Generator;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -52,7 +52,7 @@ class CompteTests {
 
 	@Test
 	public void getOne() {
-		Compte compte = new Compte(UUID.randomUUID().toString(),"Nom", "Prénom", LocalDate.parse("12/11/1999", formatter), "France", "FR98156470", "0951366785", IbanGenerator.generate("FR"), BigDecimal.valueOf(0));
+		Compte compte = new Compte(UUID.randomUUID().toString(),"Nom", "Prénom", LocalDate.parse("12/11/1999", formatter), "France", "FR98156470", "0951366785", Generator.generateIban("FR"), BigDecimal.valueOf(0));
 		ressource.save(compte);
 		Response response = when().get("/comptes/"+compte.getUuid())
 				.then()
