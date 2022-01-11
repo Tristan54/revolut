@@ -15,8 +15,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class CarteInput {
 
-    @Range(min = 0, max=Integer.MAX_VALUE, message = "Plafond invalide")
-    @NotBlank(message = "Il faut renseigner un plafond")
+    @Range(min = 10, max=Integer.MAX_VALUE, message = "Plafond invalide")
     private Integer plafond;
 
     @NotNull(message = "Veuillez renseigner si la carte doit être soumise à la localisation")

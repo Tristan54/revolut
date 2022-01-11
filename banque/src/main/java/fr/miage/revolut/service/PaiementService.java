@@ -1,11 +1,13 @@
 package fr.miage.revolut.service;
 
 
+import fr.miage.revolut.boundary.OperaionCarteRessource;
 import fr.miage.revolut.dto.input.OperationInput;
 import fr.miage.revolut.dto.input.PaiementInput;
 import fr.miage.revolut.entity.Carte;
 import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.entity.Operation;
+import fr.miage.revolut.entity.OperationCarte;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ public class PaiementService {
     private final CompteService compteService;
     private final OperationService operationService;
     private final CarteService carteService;
+    private final OperaionCarteRessource operationCarteRessource;
 
     public String payer(PaiementInput paiementInput, String compteId){
         Compte compte = compteService.findById(compteId).get();
@@ -28,9 +31,9 @@ public class PaiementService {
             return "Numéro de carte invalide";
         }
 
-        String verifCarte = carteService.verifierCarte(carte, paiementInput.getCryptogrammeCarte(), paiementInput.getCodeCarte(), paiementInput.getPays(), paiementInput.getMontant(), paiementInput.isSansContact());
-        if(verifCarte != "fait"){
-            return verifCarte;
+        String veriferCarte = carteService.verifierCarte(carte, paiementInput.getCryptogrammeCarte(), paiementInput.getCodeCarte(), paiementInput.getPays(), paiementInput.getMontant(), paiementInput.isSansContact());
+        if(veriferCarte != "fait"){
+            return veriferCarte;
         }
 
         OperationInput operationInput = new OperationInput(
@@ -45,6 +48,9 @@ public class PaiementService {
         Optional<Operation> operation = operationService.createOperation(operationInput, compteId);
 
         if(operation.isPresent()){
+            // opération pour carte
+            operationCarteRessource.save(new OperationCarte(carte.getUuid(), operation.get().getUuid()));
+
             // suppression de la carte virtuelle apres operation
             if(carte.isVirtuelle()){
                 carteService.delete(carte);

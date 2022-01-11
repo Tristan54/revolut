@@ -4,12 +4,14 @@ import fr.miage.revolut.boundary.OperationRessource;
 import fr.miage.revolut.dto.input.OperationInput;
 import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.entity.Operation;
+import fr.miage.revolut.entity.OperationCarte;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -79,5 +81,15 @@ public class OperationService {
         }
 
         return false;
+    }
+
+    public BigDecimal calculerMontant(List<OperationCarte> operations){
+        BigDecimal res = BigDecimal.valueOf(0);
+        for( OperationCarte operation : operations){
+            Operation o = ressource.findById(operation.getOperation_uuid()).get();
+            res = res.add(o.getMontant());
+        }
+
+        return res;
     }
 }

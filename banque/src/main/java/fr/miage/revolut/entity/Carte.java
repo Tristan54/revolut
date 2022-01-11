@@ -21,6 +21,7 @@ public class Carte {
     private int cryptogramme;
     private Integer plafond;
     private boolean bloque;
+    private boolean supprime;
     private boolean localisation;
     private boolean sansContact;
     private boolean virtuelle;
