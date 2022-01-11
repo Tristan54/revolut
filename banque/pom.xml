@@ -15,7 +15,7 @@
 	<description>API pour le service Banque</description>
 	<properties>
 		<java.version>17</java.version>
-		<keycloak.version>9.0.2</keycloak.version>
+		<keycloak.version>15.0.2</keycloak.version>
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 		<org.projectlombok.version>1.18.22</org.projectlombok.version>
 		<org.projectlombok.binding.version>0.2.0</org.projectlombok.binding.version>

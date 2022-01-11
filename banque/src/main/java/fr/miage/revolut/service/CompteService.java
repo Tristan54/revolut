@@ -62,7 +62,6 @@ public class CompteService {
 
     public String createCompte(CompteInput compte){
 
-        System.out.println("ici");
         Keycloak keycloak = KeycloakBuilder.builder().serverUrl(env.getProperty("keycloak.auth-server-url"))
                 .grantType(OAuth2Constants.PASSWORD).realm("master").clientId("admin-cli")
                 .username(env.getProperty("app.keycloak.username")).password(env.getProperty("app.keycloak.password"))
@@ -99,7 +98,7 @@ public class CompteService {
 
             userResource.roles().realmLevel().add(Arrays.asList(realmRoleUser));
         }
-
+        System.out.println("user id : " + userId);
         return userId;
     }
 

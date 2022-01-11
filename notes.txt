@@ -14,3 +14,5 @@ faire attention aux opérations
 
 Pour les tests de validation regarder intervenant service patch
 Que faire quand une carte virtuelle est utilisée ?? 
+
+Plafond : vérifier les opérations jointes avec la carte pour faire les test !!

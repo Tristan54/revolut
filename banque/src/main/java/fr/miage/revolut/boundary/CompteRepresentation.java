@@ -46,7 +46,6 @@ public class CompteRepresentation {
     @GetMapping(value="/{compteId}")
     @PreAuthorize(value = "authentication.name.equals(#id)")
     public ResponseEntity<?> getOneCompte(@PathVariable("compteId") String id) {
-        System.out.println("ici");
         return Optional.ofNullable(service.findById(id)).filter(Optional::isPresent)
                 .map(c -> ResponseEntity.ok(assembler.toModel(c.get())))
                 .orElse(ResponseEntity.notFound().build());
@@ -55,7 +54,6 @@ public class CompteRepresentation {
     @PostMapping()
     @Transactional
     public ResponseEntity<?> createCompte(@RequestBody @Valid CompteInput compte) {
-        System.out.println("ici 2");
         String id = service.createCompte(compte);
 
         if(id.isEmpty()){
