@@ -25,7 +25,6 @@ public class PaiementRepresentation {
     }
 
     @PostMapping
-    @PreAuthorize(value = "authentication.name.equals(#compteId)")
     @Transactional
     public ResponseEntity<?> payer(@RequestBody @Valid PaiementInput paiement, @PathVariable("compteId") String compteId){
 

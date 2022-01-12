@@ -38,7 +38,9 @@ public class CarteRepresentation {
     @GetMapping
     @PreAuthorize(value = "authentication.name.equals(#compteId)")
     public ResponseEntity<?> getAllCartes(@PathVariable("compteId") String compteId) {
-        return ResponseEntity.ok().build();
+        return Optional.ofNullable(service.findByUuid(compteId))
+                .map(c -> ResponseEntity.ok(assembler.toCollectionModel(c, compteId)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping(value="/{carteId}")
@@ -66,6 +68,7 @@ public class CarteRepresentation {
     }
 
     @PutMapping(value="/{carteId}")
+    @Transactional
     @PreAuthorize(value = "authentication.name.equals(#compteId)")
     public ResponseEntity<?> modifierUneCarte(@PathVariable("compteId") String compteId, @PathVariable("carteId") String carteId, @RequestBody @Valid CarteUpdate carte) {
         if(service.findById(carteId).isPresent()){

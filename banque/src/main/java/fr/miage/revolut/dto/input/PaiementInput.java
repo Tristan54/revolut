@@ -8,10 +8,9 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -23,13 +22,11 @@ public class PaiementInput {
     @Size(min = 16, max = 16, message = "Numéro de la carte invalide")
     private String numeroCarte;
 
-    @Range(min = 3, max = 3, message = "Cryptogramme de la carcryptogrammete invalide")
-    @NotBlank(message = "Il faut renseigner le code de la carte")
-    private int cryptogrammeCarte;
+    @Pattern(regexp = "[0-9]{3}", message = "Le Cryptogramme de la carte doit contenir 3 numéros")
+    private String cryptogrammeCarte;
 
-    @Range(min = 4, max = 4, message = "Code de carte invalide")
-    @NotBlank(message = "Il faut renseigner le code de la carte")
-    private int codeCarte;
+    @Pattern(regexp = "[0-9]{4}", message = "Le code de la carte doit contenir 4 numéros")
+    private String codeCarte;
 
     @NotBlank(message = "Nom du pays invalide")
     private String pays;
@@ -43,10 +40,10 @@ public class PaiementInput {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @NotNull(message = "Il faut renseigner une date et une heure")
-    private String date;
+    private LocalDateTime date;
 
-    @Size(min = 0, message = "Montant invalide")
-    @NotBlank(message = "Il faut renseigner un montant")
+    @DecimalMin(value = "0", message = "Montant invalide")
+    @NotNull(message = "Il faut renseigner un montant")
     private BigDecimal montant;
 
     @NotNull(message = "Veuillez renseigner si la carte est sans contact")

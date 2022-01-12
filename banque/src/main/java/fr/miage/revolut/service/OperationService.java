@@ -41,10 +41,14 @@ public class OperationService {
 
         // verification de la localisation + taux de change
         BigDecimal taux;
-        try {
-           taux = conversionService.conversion(operation.getPays(), compte.getPays());
-        }catch (Exception e){
-            return Optional.empty();
+        if(operation.getPays().equals(compte.getPays())){
+            taux = BigDecimal.valueOf(1.0);
+        }else{
+            try {
+                taux = conversionService.conversion(operation.getPays(), compte.getPays());
+            }catch (Exception e){
+                return Optional.empty();
+            }
         }
 
         // verification du montant

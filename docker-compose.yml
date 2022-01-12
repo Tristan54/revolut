@@ -30,8 +30,7 @@ services:
       DB_PASSWORD: password
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: Pa55w0rd
-      #KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/keycloak-export.json -Dkeycloak.profile.feature.upload_scripts=enabled
-    command: [ "-Djboss.socket.binding.port-offset=100" ]
+    command: [ "-Djboss.socket.binding.port-offset=100" , "-b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/opt/jboss/keycloak/imports/keycloak-export.json -Dkeycloak.profile.feature.upload_scripts=enabled"]
     ports:
       - 8082:8180
     depends_on:

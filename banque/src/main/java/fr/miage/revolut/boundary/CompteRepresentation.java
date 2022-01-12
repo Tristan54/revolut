@@ -76,10 +76,8 @@ public class CompteRepresentation {
             response = service.connexion(compte);
             return ResponseEntity.ok(response);
         }catch (Exception e){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Identifiant ou mot de passe incorrect");
         }
-
-
 
     }
 

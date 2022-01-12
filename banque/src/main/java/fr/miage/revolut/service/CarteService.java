@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -79,16 +80,19 @@ public class CarteService {
         carte.setPlafond(carteUpdate.getPlafond());
         carte.setSansContact(carteUpdate.isSansContact());
         carte.setBloque(carteUpdate.isBloque());
+        carte.setSupprime(carteUpdate.isSupprime());
 
         return ressource.save(carte);
     }
 
-    public String verifierCarte(Carte carte, int cryptogramme, int code, String pays, BigDecimal montant, boolean sansContact){
-        if(carte.isBloque()){
+    public String verifierCarte(Carte carte, String cryptogramme, String code, String pays, BigDecimal montant, boolean sansContact){
+        if(carte.isBloque()) {
             return "La carte est bloquée";
-        }else if(carte.getCryptogramme() != cryptogramme){
+        }else if(carte.isSupprime()){
+            return "La carte n'existe plus";
+        }else if(!carte.getCryptogramme().equals(cryptogramme)){
             return "Cryptogramme invalide";
-        }else if(carte.getCode() != code){
+        }else if(!carte.getCode().equals(code)){
             return "Code invalide";
         }else if(carte.getPlafond().compareTo(montant.intValue()) < 0 || carte.getPlafond().compareTo(operationService.calculerMontant(operaionCarteRessource.findByOperationCarte_Carte_Uuid(carte.getUuid())).add(montant).intValue()) < 0 ) {
             return "Le montant de l'opération dépasse le plafond de la carte";
@@ -99,5 +103,9 @@ public class CarteService {
         }else {
             return "fait";
         }
+    }
+
+    public List<Carte> findByUuid(String compteId) {
+        return ressource.findByCompte_Uuid(compteId);
     }
 }

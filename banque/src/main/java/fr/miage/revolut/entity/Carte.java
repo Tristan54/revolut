@@ -17,8 +17,8 @@ public class Carte {
     @Id
     private String uuid;
     private String numero;
-    private int code;
-    private int cryptogramme;
+    private String code;
+    private String cryptogramme;
     private Integer plafond;
     private boolean bloque;
     private boolean supprime;

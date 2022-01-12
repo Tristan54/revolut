@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 
@@ -20,6 +21,7 @@ public class OperationInput {
     private String libelle;
 
     @DecimalMin(value = "0.01", message = "Montant invalide")
+    @NotNull(message = "Il faut renseigner le montant de l'opération")
     private BigDecimal montant;
 
     @NotBlank(message = "Nom du créditeur invalide")

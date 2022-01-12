@@ -61,6 +61,24 @@ class CompteRepresentationTest {
     }
 
 	@Test
+	public void connexionFailedIdentifiant() throws Exception {
+		CompteSignIn compteSignIn = new CompteSignIn();
+		compteSignIn.setMotDePasse("password");
+		compteSignIn.setNumTel("");
+		Response response = given().body(this.toJsonString(compteSignIn)).contentType(ContentType.JSON).
+				when().post("/comptes/connexion").then().statusCode(HttpStatus.SC_BAD_REQUEST).extract().response();
+	}
+
+	@Test
+	public void connexionFailedMotDePasse() throws Exception {
+		CompteSignIn compteSignIn = new CompteSignIn();
+		compteSignIn.setMotDePasse("");
+		compteSignIn.setNumTel("+339136735");
+		Response response = given().body(this.toJsonString(compteSignIn)).contentType(ContentType.JSON).
+				when().post("/comptes/connexion").then().statusCode(HttpStatus.SC_BAD_REQUEST).extract().response();
+	}
+
+	@Test
 	public void getCompte() throws Exception {
 		Compte compte = new Compte("9a6ebcef-8ed7-4185-b6d1-301194d79051","Nom", "Prénom", LocalDate.parse("1999-11-12"), "France", "FR98156470", "+339136735", Generator.generateIban("FR"), BigDecimal.valueOf(0));
 		ressource.save(compte);

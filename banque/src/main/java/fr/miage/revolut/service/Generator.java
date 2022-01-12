@@ -14,11 +14,11 @@ public class Generator {
         return RandomStringUtils.randomNumeric(16);
     }
 
-    public static int generateCodeCarte(){
-        return Integer.parseInt(RandomStringUtils.randomNumeric(4));
+    public static String  generateCodeCarte(){
+        return RandomStringUtils.randomNumeric(4);
     }
 
-    public static int generateCryptogrammeCarte(){
-        return Integer.parseInt(RandomStringUtils.randomNumeric(3));
+    public static String generateCryptogrammeCarte(){
+        return RandomStringUtils.randomNumeric(3);
     }
 }
