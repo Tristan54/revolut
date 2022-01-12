@@ -4,10 +4,7 @@ package fr.miage.revolut.service;
 import fr.miage.revolut.boundary.OperaionCarteRessource;
 import fr.miage.revolut.dto.input.OperationInput;
 import fr.miage.revolut.dto.input.PaiementInput;
-import fr.miage.revolut.entity.Carte;
-import fr.miage.revolut.entity.Compte;
-import fr.miage.revolut.entity.Operation;
-import fr.miage.revolut.entity.OperationCarte;
+import fr.miage.revolut.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +46,8 @@ public class PaiementService {
 
         if(operation.isPresent()){
             // opération pour carte
-            operationCarteRessource.save(new OperationCarte(carte.getUuid(), operation.get().getUuid()));
+            OperationCarte operationCarte = new OperationCarte(operation.get(), carte);
+            operationCarteRessource.save(new PivotOperationCarte(operationCarte));
 
             // suppression de la carte virtuelle apres operation
             if(carte.isVirtuelle()){

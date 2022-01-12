@@ -5,6 +5,7 @@ import fr.miage.revolut.dto.input.OperationInput;
 import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.entity.Operation;
 import fr.miage.revolut.entity.OperationCarte;
+import fr.miage.revolut.entity.PivotOperationCarte;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -83,10 +84,11 @@ public class OperationService {
         return false;
     }
 
-    public BigDecimal calculerMontant(List<OperationCarte> operations){
+    public BigDecimal calculerMontant(List<PivotOperationCarte> operations){
         BigDecimal res = BigDecimal.valueOf(0);
-        for( OperationCarte operation : operations){
-            Operation o = ressource.findById(operation.getOperation_uuid()).get();
+        for(PivotOperationCarte pivot : operations){
+            Operation operation = pivot.getOperationCarte().getOperation();
+            Operation o = ressource.findById(operation.getUuid()).get();
             res = res.add(o.getMontant());
         }
 

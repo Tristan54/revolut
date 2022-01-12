@@ -5,18 +5,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OperationCarte {
+@Embeddable
+public class OperationCarte implements Serializable {
 
-    @Id
-    private String carte_uuid;
-    @Id
-    private String operation_uuid;
+    private static final long serialVersionUID = -7657356784064548821L;
+
+    @OneToOne
+    @JoinColumn(name = "operation_uuid", referencedColumnName = "uuid", unique = true)
+    private Operation operation;
+
+    @ManyToOne
+    @JoinColumn(name = "carte_uuid", referencedColumnName = "uuid")
+    private Carte carte;
 }

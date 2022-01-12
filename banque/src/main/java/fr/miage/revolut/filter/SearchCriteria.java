@@ -12,6 +12,6 @@ public class SearchCriteria {
     private Object value;
 
     public boolean isOrPredicate() {
-        return  operation.equals("|");
+        return operation.equals("|");
     }
 }

@@ -1,0 +1,21 @@
+{
+  "realm" : "app-revolut",
+  "users" : [ {
+    "id" : "081f42b9-6ee8-4851-bc62-0aaf7dcd90ca",
+    "createdTimestamp" : 1640268928364,
+    "username" : "service-account-fr.miage.revolut",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "serviceAccountClientId" : "fr.miage.revolut",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-app-revolut" ],
+    "clientRoles" : {
+      "fr.miage.revolut" : [ "uma_protection" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}

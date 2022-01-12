@@ -1,0 +1,42 @@
+{
+  "realm" : "app-revolut-test",
+  "users" : [ {
+    "id" : "66b67737-81af-40ff-9120-6ee1a27770d9",
+    "createdTimestamp" : 1641991033355,
+    "username" : "+339136735",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "firstName" : "Prénom",
+    "lastName" : "Nom",
+    "credentials" : [ {
+      "id" : "6e548c71-498e-470f-89ef-fe2daaf70c7a",
+      "type" : "password",
+      "createdDate" : 1641991033482,
+      "secretData" : "{\"value\":\"b9nC8pl1k3U3S3aDMdFLCHXlMZQYFMy019AfsTsbxIEkSh8keFvxuf1D11Z2Ib1nacAIFePEBnMl+nHdfXLqcA==\",\"salt\":\"2ExztbXl/a1rqGIMj+TWXg==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "app-user", "default-roles-app-revolut-test" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
+    "id" : "3516a00a-5b5b-470b-ac19-7603a8506c1a",
+    "createdTimestamp" : 1641990969134,
+    "username" : "service-account-fr.miage.revolut-test",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "serviceAccountClientId" : "fr.miage.revolut-test",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-app-revolut-test" ],
+    "clientRoles" : {
+      "fr.miage.revolut-test" : [ "uma_protection" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  } ]
+}

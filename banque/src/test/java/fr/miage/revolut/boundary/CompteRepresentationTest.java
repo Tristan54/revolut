@@ -45,7 +45,7 @@ class CompteRepresentationTest {
 		RestAssured.port = 8080;
 
 		ressource.deleteAll();
-        ressource.save(new Compte("42a10afb-b9f1-480c-91f8-df3fa870f127","Nom", "Prénom", LocalDate.parse("1999-11-12"), "France", "FR98156470", "+339136735", Generator.generateIban("FR"), BigDecimal.valueOf(0)));
+        ressource.save(new Compte("9a6ebcef-8ed7-4185-b6d1-301194d79051","Nom", "Prénom", LocalDate.parse("1999-11-12"), "France", "FR98156470", "+339136735", Generator.generateIban("FR"), BigDecimal.valueOf(0)));
 	}
 
     private Header getHeaderAuthorization() throws Exception {
@@ -62,7 +62,7 @@ class CompteRepresentationTest {
 
 	@Test
 	public void getCompte() throws Exception {
-		Compte compte = new Compte("42a10afb-b9f1-480c-91f8-df3fa870f127","Nom", "Prénom", LocalDate.parse("1999-11-12"), "France", "FR98156470", "+339136735", Generator.generateIban("FR"), BigDecimal.valueOf(0));
+		Compte compte = new Compte("9a6ebcef-8ed7-4185-b6d1-301194d79051","Nom", "Prénom", LocalDate.parse("1999-11-12"), "France", "FR98156470", "+339136735", Generator.generateIban("FR"), BigDecimal.valueOf(0));
 		ressource.save(compte);
 		Response response = given()
                 .header(getHeaderAuthorization())

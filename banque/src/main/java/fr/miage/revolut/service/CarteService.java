@@ -90,7 +90,7 @@ public class CarteService {
             return "Cryptogramme invalide";
         }else if(carte.getCode() != code){
             return "Code invalide";
-        }else if(carte.getPlafond().compareTo(montant.intValue()) < 0 || carte.getPlafond().compareTo(operationService.calculerMontant(operaionCarteRessource.findAllByCarteUuid(carte.getUuid())).add(montant).intValue()) < 0 ) {
+        }else if(carte.getPlafond().compareTo(montant.intValue()) < 0 || carte.getPlafond().compareTo(operationService.calculerMontant(operaionCarteRessource.findByOperationCarte_Carte_Uuid(carte.getUuid())).add(montant).intValue()) < 0 ) {
             return "Le montant de l'opération dépasse le plafond de la carte";
         }else if(!carte.getCompte().getPays().equals(pays) && carte.isLocalisation()){
             return "L'opération à lieu dans un pays différent de celui de compte et la carte n'autorise pas les opérations à l'étranger";

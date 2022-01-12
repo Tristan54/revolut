@@ -17,3 +17,7 @@ Que faire quand une carte virtuelle est utilisée ??
 
 Plafond : vérifier les opérations jointes avec la carte pour faire les test !!
 mettre de vrai messages d'erreurs
+
+docker exec -it keycloak /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/opt/jboss/keycloak/imports/keycloak-export.json
+
+docker exec -it keycloak /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/opt/jboss/keycloak/imports/keycloak-export.json -Dkeycloak.profile.feature.upload_scripts=enabled
