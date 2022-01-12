@@ -13,7 +13,7 @@ public class OperationValidator {
 
     private final Validator validator;
 
-    OperationValidator(Validator validator) {
+    public OperationValidator(Validator validator) {
         this.validator = validator;
     }
 

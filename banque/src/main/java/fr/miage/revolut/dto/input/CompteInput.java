@@ -32,14 +32,15 @@ public class CompteInput {
     @NotBlank(message = "Pays invalide")
     private String pays;
 
-    @Size(min = 9, max=9, message = "Numéro de passeport invalide")
+    @Pattern(regexp = "^[A-Z]{2}[a-zA-Z0-9]{7}", message = "Numéro de passeport invalide")
     @NotBlank(message = "Il faut renseigner un numéro de passeport")
     private String numPasseport;
 
     @NotBlank(message = "Mot de passe invalide")
+    @Size(min = 6, message = "Mot de passe invalide")
     private String motDePasse;
 
-    @Pattern(regexp = "^\\+(?:[0-9]?){6,14}[0-9]$", message = "Numéro de téléphone invalide")
+    @Pattern(regexp = "^\\+(?:[0-9]?)[0-9]{6,14}$", message = "Numéro de téléphone invalide")
     @NotBlank(message = "Il faut renseigner un numéro de téléphone")
     private String numTel;
 }

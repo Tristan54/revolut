@@ -1,6 +1,7 @@
 package fr.miage.revolut.service;
 
 import fr.miage.revolut.boundary.CarteRessource;
+import fr.miage.revolut.boundary.OperaionCarteRessource;
 import fr.miage.revolut.dto.input.CarteInput;
 import fr.miage.revolut.dto.input.CarteUpdate;
 import fr.miage.revolut.entity.Carte;
@@ -18,6 +19,8 @@ public class CarteService {
 
     private final CarteRessource ressource;
     private final CompteService compteService;
+    private final OperationService operationService;
+    private final OperaionCarteRessource operaionCarteRessource;
 
     public Optional<Carte> findById(String id){
         return ressource.findById(id);
@@ -45,6 +48,7 @@ public class CarteService {
                 Generator.generateCodeCarte(),
                 Generator.generateCryptogrammeCarte(),
                 carteInput.getPlafond(),
+                false,
                 false,
                 carteInput.isLocalisation(),
                 carteInput.isSansContact(),
@@ -86,7 +90,7 @@ public class CarteService {
             return "Cryptogramme invalide";
         }else if(carte.getCode() != code){
             return "Code invalide";
-        }else if(carte.getPlafond().compareTo(montant.intValue()) < 0){
+        }else if(carte.getPlafond().compareTo(montant.intValue()) < 0 || carte.getPlafond().compareTo(operationService.calculerMontant(operaionCarteRessource.findAllByCarteUuid(carte.getUuid())).add(montant).intValue()) < 0 ) {
             return "Le montant de l'opération dépasse le plafond de la carte";
         }else if(!carte.getCompte().getPays().equals(pays) && carte.isLocalisation()){
             return "L'opération à lieu dans un pays différent de celui de compte et la carte n'autorise pas les opérations à l'étranger";

@@ -40,7 +40,6 @@ public class CompteService {
     private final CompteRessource ressource;
 
     public Optional<Compte> findById(String id){
-        System.out.println("ici");
         return ressource.findById(id);
     }
 
