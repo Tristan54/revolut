@@ -12,8 +12,8 @@ import lombok.Setter;
 public class CarteOutput {
 
     private String numero;
-    private int code;
-    private int cryptogramme;
+    private String code;
+    private String cryptogramme;
     private Integer plafond;
     private boolean bloque;
     private boolean supprime;

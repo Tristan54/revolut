@@ -1,7 +1,7 @@
 package fr.miage.revolut.service;
 
 import fr.miage.revolut.boundary.CarteRessource;
-import fr.miage.revolut.boundary.OperaionCarteRessource;
+import fr.miage.revolut.boundary.OperationCarteRessource;
 import fr.miage.revolut.dto.input.CarteInput;
 import fr.miage.revolut.dto.input.CarteUpdate;
 import fr.miage.revolut.entity.Carte;
@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,7 +22,7 @@ public class CarteService {
     private final CarteRessource ressource;
     private final CompteService compteService;
     private final OperationService operationService;
-    private final OperaionCarteRessource operaionCarteRessource;
+    private final OperationCarteRessource operaionCarteRessource;
 
     public Optional<Carte> findById(String id){
         return ressource.findById(id);
@@ -85,7 +86,7 @@ public class CarteService {
         return ressource.save(carte);
     }
 
-    public String verifierCarte(Carte carte, String cryptogramme, String code, String pays, BigDecimal montant, boolean sansContact){
+    public String verifierCarte(Carte carte, String cryptogramme, String code, String pays, BigDecimal montant, boolean sansContact, LocalDateTime date){
         if(carte.isBloque()) {
             return "La carte est bloquée";
         }else if(carte.isSupprime()){
@@ -94,7 +95,7 @@ public class CarteService {
             return "Cryptogramme invalide";
         }else if(!carte.getCode().equals(code)){
             return "Code invalide";
-        }else if(carte.getPlafond().compareTo(montant.intValue()) < 0 || carte.getPlafond().compareTo(operationService.calculerMontant(operaionCarteRessource.findByOperationCarte_Carte_Uuid(carte.getUuid())).add(montant).intValue()) < 0 ) {
+        }else if(carte.getPlafond().compareTo(montant.intValue()) < 0 || carte.getPlafond().compareTo(operationService.calculerMontant(operaionCarteRessource.findByOperationCarte_Carte_UuidAndOperationCarte_Operation_DateGreaterThanEqual(carte.getUuid(), date)).add(montant).intValue()) < 0 ) {
             return "Le montant de l'opération dépasse le plafond de la carte";
         }else if(!carte.getCompte().getPays().equals(pays) && carte.isLocalisation()){
             return "L'opération à lieu dans un pays différent de celui de compte et la carte n'autorise pas les opérations à l'étranger";

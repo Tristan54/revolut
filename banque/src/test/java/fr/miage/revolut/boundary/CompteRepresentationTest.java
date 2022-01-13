@@ -11,6 +11,7 @@ import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +45,13 @@ class CompteRepresentationTest {
 	public void setupContext() {
 		RestAssured.port = 8080;
 
-		ressource.deleteAll();
         ressource.save(new Compte("9a6ebcef-8ed7-4185-b6d1-301194d79051","Nom", "Prénom", LocalDate.parse("1999-11-12"), "France", "FR98156470", "+339136735", Generator.generateIban("FR"), BigDecimal.valueOf(0)));
 	}
+
+    @AfterEach
+    public void endContext(){
+        ressource.deleteAll();
+    }
 
     private Header getHeaderAuthorization() throws Exception {
         if(access_token == null) {

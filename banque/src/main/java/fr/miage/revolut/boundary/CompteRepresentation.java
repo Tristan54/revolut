@@ -3,6 +3,7 @@ package fr.miage.revolut.boundary;
 import fr.miage.revolut.assembler.CompteAssembler;
 import fr.miage.revolut.dto.input.CompteInput;
 import fr.miage.revolut.dto.input.CompteSignIn;
+import fr.miage.revolut.dto.output.CompteOutput;
 import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.service.CompteService;
 import org.keycloak.representations.AccessTokenResponse;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,7 +47,7 @@ public class CompteRepresentation {
 
     @GetMapping(value="/{compteId}")
     @PreAuthorize(value = "authentication.name.equals(#id)")
-    public ResponseEntity<?> getOneCompte(@PathVariable("compteId") String id) {
+    public ResponseEntity<EntityModel<CompteOutput>> getOneCompte(@PathVariable("compteId") String id) {
         return Optional.ofNullable(service.findById(id)).filter(Optional::isPresent)
                 .map(c -> ResponseEntity.ok(assembler.toModel(c.get())))
                 .orElse(ResponseEntity.notFound().build());
@@ -53,7 +55,7 @@ public class CompteRepresentation {
 
     @PostMapping()
     @Transactional
-    public ResponseEntity<?> createCompte(@RequestBody @Valid CompteInput compte) {
+    public ResponseEntity<URI> createCompte(@RequestBody @Valid CompteInput compte) {
         String id = service.createCompte(compte);
 
         if(id.isEmpty()){

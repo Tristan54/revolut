@@ -1,7 +1,7 @@
 package fr.miage.revolut.service;
 
 
-import fr.miage.revolut.boundary.OperaionCarteRessource;
+import fr.miage.revolut.boundary.OperationCarteRessource;
 import fr.miage.revolut.dto.input.OperationInput;
 import fr.miage.revolut.dto.input.PaiementInput;
 import fr.miage.revolut.entity.*;
@@ -17,18 +17,25 @@ public class PaiementService {
     private final CompteService compteService;
     private final OperationService operationService;
     private final CarteService carteService;
-    private final OperaionCarteRessource operationCarteRessource;
+    private final OperationCarteRessource operationCarteRessource;
 
-    public String payer(PaiementInput paiementInput, String compteId){
-        Compte compte = compteService.findById(compteId).get();
+    public String payer(PaiementInput paiementInput){
 
         Carte carte = carteService.findByNumero(paiementInput.getNumeroCarte());
 
-        if(carte == null){
+        Compte compte;
+        try {
+            compte = compteService.findById(carte.getCompte().getUuid()).get();
+        }catch (Exception e){
+            return "Utilisateur introuvable";
+        }
+
+
+        if(carte == null ){
             return "Numéro de carte invalide";
         }
 
-        String veriferCarte = carteService.verifierCarte(carte, paiementInput.getCryptogrammeCarte(), paiementInput.getCodeCarte(), paiementInput.getPays(), paiementInput.getMontant(), paiementInput.isSansContact());
+        String veriferCarte = carteService.verifierCarte(carte, paiementInput.getCryptogrammeCarte(), paiementInput.getCodeCarte(), paiementInput.getPays(), paiementInput.getMontant(), paiementInput.isSansContact(), paiementInput.getDate());
         if(veriferCarte != "fait"){
             return veriferCarte;
         }
@@ -42,16 +49,16 @@ public class PaiementService {
                 paiementInput.getPays()
         );
 
-        Optional<Operation> operation = operationService.createOperation(operationInput, compteId);
+        Optional<Operation> operation = operationService.createOperation(operationInput, compte.getUuid());
 
         if(operation.isPresent()){
             // opération pour carte
-            OperationCarte operationCarte = new OperationCarte(operation.get(), carte);
-            operationCarteRessource.save(new PivotOperationCarte(operationCarte));
+            operationCarteRessource.save(new PivotOperationCarte(new OperationCarte(operation.get(), carte)));
 
             // suppression de la carte virtuelle apres operation
             if(carte.isVirtuelle()){
-                carteService.delete(carte);
+                carte.setSupprime(true);
+                carteService.save(carte);
             }
 
             return "fait";

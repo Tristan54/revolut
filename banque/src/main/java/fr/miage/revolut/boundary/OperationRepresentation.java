@@ -2,11 +2,14 @@ package fr.miage.revolut.boundary;
 
 import fr.miage.revolut.assembler.OperationAssembler;
 import fr.miage.revolut.dto.input.OperationInput;
+import fr.miage.revolut.dto.output.OperationOutput;
 import fr.miage.revolut.dto.validator.OperationValidator;
 import fr.miage.revolut.entity.Operation;
 import fr.miage.revolut.filter.OperationSpecificationsBuilder;
 import fr.miage.revolut.service.OperationService;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +46,7 @@ public class OperationRepresentation {
 
     @GetMapping
     @PreAuthorize(value = "authentication.name.equals(#compteId)")
-    public ResponseEntity<?> getAllOperations(@PathVariable("compteId") String compteId, @Nullable @RequestParam(value = "filtres") String filtres){
+    public ResponseEntity<CollectionModel<EntityModel<OperationOutput>>> getAllOperations(@PathVariable("compteId") String compteId, @Nullable @RequestParam(value = "filtres") String filtres){
         OperationSpecificationsBuilder builder = new OperationSpecificationsBuilder();
         Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
         Matcher matcher = pattern.matcher(filtres + ",");
@@ -59,7 +62,7 @@ public class OperationRepresentation {
 
     @GetMapping(value="/{operationId}")
     @PreAuthorize(value = "authentication.name.equals(#compteId)")
-    public ResponseEntity<?> getOneOperation(@PathVariable("compteId") String compteId, @PathVariable("operationId") String operationId) {
+    public ResponseEntity<EntityModel<OperationOutput>> getOneOperation(@PathVariable("compteId") String compteId, @PathVariable("operationId") String operationId) {
         return Optional.ofNullable(service.findById(operationId)).filter(Optional::isPresent)
                 .map(o -> ResponseEntity.ok(assembler.toModelWithAccount(o.get(), compteId)))
                 .orElse(ResponseEntity.notFound().build());
@@ -68,7 +71,7 @@ public class OperationRepresentation {
     @PostMapping
     @PreAuthorize(value = "authentication.name.equals(#compteId)")
     @Transactional
-    public ResponseEntity<?> createOperation(@RequestBody @Valid OperationInput operation, @PathVariable("compteId") String compteId){
+    public ResponseEntity<String> createOperation(@RequestBody @Valid OperationInput operation, @PathVariable("compteId") String compteId){
 
         Optional<Operation> saved = service.createOperation(operation, compteId);
 
@@ -84,11 +87,11 @@ public class OperationRepresentation {
     @PatchMapping("/deposer/{montant}")
     @PreAuthorize(value = "authentication.name.equals(#compteId)")
     @Transactional
-    public ResponseEntity<?> deposer(@PathVariable("compteId") String compteId, @Valid @PathVariable("montant") BigDecimal montant){
+    public ResponseEntity<String> deposer(@PathVariable("compteId") String compteId, @Valid @PathVariable("montant") BigDecimal montant){
 
         boolean fait = service.deposer(montant, compteId);
 
-        return fait ? ResponseEntity.noContent().build() :  ResponseEntity.badRequest().build();
+        return fait ? ResponseEntity.ok().build() :  ResponseEntity.badRequest().build();
 
     }
 

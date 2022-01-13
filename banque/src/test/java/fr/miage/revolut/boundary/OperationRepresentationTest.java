@@ -13,6 +13,8 @@ import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,7 @@ import static io.restassured.RestAssured.when;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -59,8 +61,6 @@ class OperationRepresentationTest {
 	@BeforeEach
 	public void setupContext() {
 		RestAssured.port = 8080;
-		compteRessource.deleteAll();
-		operationRessource.deleteAll();
 
 		compte = new Compte("9a6ebcef-8ed7-4185-b6d1-301194d79051","Nom", "Prénom", LocalDate.parse("1999-11-12"), "France", "FR98156470", "+339136735", Generator.generateIban("FR"), BigDecimal.valueOf(0));
         compte.credit(BigDecimal.valueOf(10000));
@@ -76,6 +76,12 @@ class OperationRepresentationTest {
 		operationRessource.save(operation3);
 		operationRessource.save(operation4);
 	}
+
+    @AfterEach
+    public void endContext() {
+        operationRessource.deleteAll();
+        compteRessource.deleteAll();
+    }
 
     private Header getHeaderAuthorization() throws Exception {
         if(access_token == null) {
@@ -219,6 +225,47 @@ class OperationRepresentationTest {
 
 		assertThat(jsonAsString,containsString("11.4"));
 	}
+
+    @Test
+    public void postOperationDeposerArgent() throws Exception{
+        BigDecimal montant = BigDecimal.valueOf(1000);
+        given().header(getHeaderAuthorization())
+                .contentType(ContentType.JSON)
+                .when()
+                .patch("/comptes/"+compte.getUuid()+"/operations/deposer/" + montant)
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract()
+                .response();
+
+        Compte compte2Test = compteRessource.findById(compte.getUuid()).get();
+        assertNotEquals(compte.getMontant(),compte2Test.getMontant());
+        assertThat(compte2Test.getMontant(), Matchers.comparesEqualTo(BigDecimal.valueOf(11000)));
+    }
+
+    @Test
+    public void postOperationDeposerArgentBadRequest() throws Exception{
+        given().header(getHeaderAuthorization())
+                .contentType(ContentType.JSON)
+                .when()
+                .patch("/comptes/"+compte.getUuid()+"/operations/deposer/test")
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .extract()
+                .response();
+    }
+
+    @Test
+    public void postOperationDeposerArgentBadRequestNumber() throws Exception{
+        given().header(getHeaderAuthorization())
+                .contentType(ContentType.JSON)
+                .when()
+                .patch("/comptes/"+compte.getUuid()+"/operations/deposer/-20")
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .extract()
+                .response();
+    }
 
 	private String toJsonString(Object o) throws Exception {
 

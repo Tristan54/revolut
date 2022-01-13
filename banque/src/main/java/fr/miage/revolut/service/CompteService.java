@@ -97,7 +97,6 @@ public class CompteService {
 
             userResource.roles().realmLevel().add(Arrays.asList(realmRoleUser));
         }
-        System.out.println("user id : " + userId);
         return userId;
     }
 

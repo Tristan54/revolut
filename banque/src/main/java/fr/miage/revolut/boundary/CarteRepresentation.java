@@ -3,9 +3,11 @@ package fr.miage.revolut.boundary;
 import fr.miage.revolut.assembler.CarteAssembler;
 import fr.miage.revolut.dto.input.CarteInput;
 import fr.miage.revolut.dto.input.CarteUpdate;
+import fr.miage.revolut.dto.output.CarteOutput;
 import fr.miage.revolut.dto.validator.CarteValidator;
 import fr.miage.revolut.entity.Carte;
 import fr.miage.revolut.service.CarteService;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +47,7 @@ public class CarteRepresentation {
 
     @GetMapping(value="/{carteId}")
     @PreAuthorize(value = "authentication.name.equals(#compteId)")
-    public ResponseEntity<?> getOneCarte(@PathVariable("compteId") String compteId, @PathVariable("carteId") String carteId) {
+    public ResponseEntity<EntityModel<CarteOutput>> getOneCarte(@PathVariable("compteId") String compteId, @PathVariable("carteId") String carteId) {
         return Optional.ofNullable(service.findById(carteId)).filter(Optional::isPresent)
                 .map(c -> ResponseEntity.ok(assembler.toModelWithAccount(c.get(), compteId)))
                 .orElse(ResponseEntity.notFound().build());
@@ -54,7 +56,7 @@ public class CarteRepresentation {
     @PostMapping
     @PreAuthorize(value = "authentication.name.equals(#compteId)")
     @Transactional
-    public ResponseEntity<?> createCarte(@RequestBody @Valid CarteInput carte, @PathVariable("compteId") String compteId){
+    public ResponseEntity<URI> createCarte(@RequestBody @Valid CarteInput carte, @PathVariable("compteId") String compteId){
 
         Optional<Carte> saved = service.createCarte(carte, compteId);
 
@@ -70,7 +72,7 @@ public class CarteRepresentation {
     @PutMapping(value="/{carteId}")
     @Transactional
     @PreAuthorize(value = "authentication.name.equals(#compteId)")
-    public ResponseEntity<?> modifierUneCarte(@PathVariable("compteId") String compteId, @PathVariable("carteId") String carteId, @RequestBody @Valid CarteUpdate carte) {
+    public ResponseEntity<URI> modifierUneCarte(@PathVariable("compteId") String compteId, @PathVariable("carteId") String carteId, @RequestBody @Valid CarteUpdate carte) {
         if(service.findById(carteId).isPresent()){
             Carte saved = service.update(carteId, carte);
 

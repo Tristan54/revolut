@@ -26,9 +26,9 @@ public class PaiementRepresentation {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> payer(@RequestBody @Valid PaiementInput paiement, @PathVariable("compteId") String compteId){
+    public ResponseEntity<String> payer(@RequestBody @Valid PaiementInput paiement){
 
-        String res = service.payer(paiement, compteId);
+        String res = service.payer(paiement);
 
         if(res.equals("fait")){
             return ResponseEntity.ok().build();

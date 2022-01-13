@@ -8,13 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface OperaionCarteRessource extends JpaRepository<PivotOperationCarte, OperationCarte>{
-
-    List<PivotOperationCarte> findByOperationCarte_Carte_Uuid(String uuid);
+public interface OperationCarteRessource extends JpaRepository<PivotOperationCarte, OperationCarte>{
 
     List<PivotOperationCarte> findByOperationCarte_Carte_UuidAndOperationCarte_Operation_DateGreaterThanEqual(String uuid, LocalDateTime date);
-
-
-
 
 }
