@@ -37,14 +37,15 @@ services:
       - 8082:8180
     networks:
       - gateway
-    links:
-      - postgres
     depends_on:
       postgres:
         condition: service_healthy
   revolut:
     build:
       context: ./banque-service
+    environment:
+      - keycloak.auth-server-url=http://keycloak:8180/auth
+      - server.port=8080
     container_name: revolut
     depends_on:
       postgres:
