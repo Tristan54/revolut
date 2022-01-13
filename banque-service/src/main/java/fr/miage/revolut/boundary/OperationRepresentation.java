@@ -79,7 +79,7 @@ public class OperationRepresentation {
             URI location = linkTo(OperationRepresentation.class, compteId).slash(saved.get().getUuid()).toUri();
             return ResponseEntity.created(location).build();
         }else {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Echec de l'opération, le compte n'est pas assez approvisionné");
         }
 
     }

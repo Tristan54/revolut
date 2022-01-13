@@ -10,10 +10,12 @@ services:
       - ./db:/docker-entrypoint-initdb.d
       - ./data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - 5432:5432
+    networks:
+      - gateway
     healthcheck:
-      test: ["CMD-SHELL", "psql -U keycloak"]
-      interval: 15s
+      test: ["CMD-SHELL", "psql -U keycloak && psql -U revolut && psql -U conversion"]
+      interval: 10s
       timeout: 5s
       retries: 5
   keycloak:
@@ -33,9 +35,39 @@ services:
     command: [ "-Djboss.socket.binding.port-offset=100" , "-b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/opt/jboss/keycloak/imports/keycloak-export.json -Dkeycloak.profile.feature.upload_scripts=enabled"]
     ports:
       - 8082:8180
+    networks:
+      - gateway
+    links:
+      - postgres
     depends_on:
       postgres:
         condition: service_healthy
+  revolut:
+    build:
+      context: ./banque-service
+    container_name: revolut
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - gateway
+    ports:
+      - 8080:8080
+  conversion:
+    build:
+      context: ./conversion-service
+    container_name: conversion
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - gateway
+    ports:
+      - 8081:8081
+      
 volumes:
   data:
+
+networks:
+  gateway: {}
   
