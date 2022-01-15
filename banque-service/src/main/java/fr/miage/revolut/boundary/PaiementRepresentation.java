@@ -31,7 +31,7 @@ public class PaiementRepresentation {
         String res = service.payer(paiement);
 
         if(res.equals("fait")){
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body(res);
         }else {
             return ResponseEntity.badRequest().body(res);
         }

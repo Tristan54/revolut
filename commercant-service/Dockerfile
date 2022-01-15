@@ -5,6 +5,6 @@ COPY /src ./src
 RUN mvn -e -B clean package -DskipTests
 
 FROM gcr.io/distroless/java17-debian11
-COPY --from=BUILDER /app/target/revolut-0.0.1-SNAPSHOT.jar /app/target/revolut-0.0.1-SNAPSHOT.jar
-EXPOSE 8080
-CMD ["/app/target/revolut-0.0.1-SNAPSHOT.jar"]
+COPY --from=BUILDER /app/target/commercant-service-1.0.jar /app/target/commercant-service-1.0.jar
+EXPOSE 8083
+CMD ["/app/target/commercant-service-1.0.jar"]

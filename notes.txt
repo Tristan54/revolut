@@ -1,22 +1,6 @@
-Test iban unique ...
-Test uuid unique
-Test identifiant unique
+Pas de scalabilité dans le rapport 
 
-attention à la validation (faire des tests je pense)
-
-faire attention aux opérations
- débiteur et créditeur : retirer ou ajouter de l'argent en fonction de l'opération
-
-
-2 opérations différentes :
- - paiement / paiement en ligne
- - virement / versement
-
-Pour les tests de validation regarder intervenant service patch
-Que faire quand une carte virtuelle est utilisée ?? 
-
-Plafond : vérifier les opérations jointes avec la carte pour faire les test !!
-mettre de vrai messages d'erreurs
+Opération entre 2 comptes
 
 docker exec -it keycloak /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/opt/jboss/keycloak/imports/keycloak-export.json
 

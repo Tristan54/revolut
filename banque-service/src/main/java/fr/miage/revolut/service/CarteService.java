@@ -54,7 +54,7 @@ public class CarteService {
                 false,
                 carteInput.isLocalisation(),
                 carteInput.isSansContact(),
-                carteInput.isSansContact(),
+                carteInput.isVirtuelle(),
                 compte
         );
 

@@ -46,9 +46,7 @@ public class OperationService {
         }else{
             try {
                 taux = conversionService.conversion(operation.getPays(), compte.getPays());
-                System.out.println(taux);
             }catch (Exception e){
-                System.out.println(e.getMessage());
                 return Optional.empty();
             }
         }
