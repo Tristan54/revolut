@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value="/paiements", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/api/v1/paiements", produces = MediaType.APPLICATION_JSON_VALUE)
 @ExposesResourceFor(Operation.class)
 public class PaiementRepresentation {
 

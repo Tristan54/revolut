@@ -22,7 +22,7 @@ import java.util.Optional;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping(value="/comptes/{compteId}/cartes", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/api/v1/comptes/{compteId}/cartes", produces = MediaType.APPLICATION_JSON_VALUE)
 @ExposesResourceFor(Carte.class)
 public class CarteRepresentation {
 

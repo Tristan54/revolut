@@ -1,6 +1,6 @@
 package fr.miage.revolut.service;
 
-import fr.miage.revolut.boundary.CompteRessource;
+import fr.miage.revolut.ressource.CompteRessource;
 import fr.miage.revolut.dto.input.CompteInput;
 import fr.miage.revolut.dto.input.CompteSignIn;
 import fr.miage.revolut.entity.Compte;
@@ -42,6 +42,8 @@ public class CompteService {
     public Optional<Compte> findById(String id){
         return ressource.findById(id);
     }
+
+    public Optional<Compte> findByIban(String iban) { return ressource.findByIban(iban); }
 
     public Compte save(CompteInput compte, String userId){
         Compte compte2Save = new Compte(

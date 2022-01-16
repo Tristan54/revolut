@@ -4,8 +4,10 @@ import fr.miage.revolut.assembler.OperationAssembler;
 import fr.miage.revolut.dto.input.OperationInput;
 import fr.miage.revolut.dto.output.OperationOutput;
 import fr.miage.revolut.dto.validator.OperationValidator;
+import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.entity.Operation;
 import fr.miage.revolut.filter.OperationSpecificationsBuilder;
+import fr.miage.revolut.service.CompteService;
 import fr.miage.revolut.service.OperationService;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.hateoas.CollectionModel;
@@ -21,7 +23,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,17 +31,19 @@ import java.util.regex.Pattern;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping(value="/comptes/{compteId}/operations", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/api/v1/comptes/{compteId}/operations", produces = MediaType.APPLICATION_JSON_VALUE)
 @ExposesResourceFor(Operation.class)
 public class OperationRepresentation {
 
 
     private final OperationService service;
+    private final CompteService compteService;
     private final OperationAssembler assembler;
     private final OperationValidator validator;
 
-    public OperationRepresentation(OperationService service, OperationAssembler assembler, OperationValidator validator) {
+    public OperationRepresentation(OperationService service, CompteService compteService, OperationAssembler assembler, OperationValidator validator) {
         this.service = service;
+        this.compteService = compteService;
         this.assembler = assembler;
         this.validator = validator;
     }
@@ -51,13 +55,20 @@ public class OperationRepresentation {
         Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
         Matcher matcher = pattern.matcher(filtres + ",");
 
+
         builder.with("compteUuid", ":", compteId);
         while (matcher.find()) {
             builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
         }
 
+
         Specification<Operation> spec = builder.build();
-        return ResponseEntity.ok(assembler.toCollectionModel(service.findAll(spec), compteId));
+        List<Operation> operations = service.findAll(spec);
+
+        Compte compte = compteService.findById(compteId).get();
+        operations.addAll(service.findByIbanCrediteur(compte.getIban()));
+
+        return ResponseEntity.ok(assembler.toCollectionModel(operations, compteId));
     }
 
     @GetMapping(value="/{operationId}")

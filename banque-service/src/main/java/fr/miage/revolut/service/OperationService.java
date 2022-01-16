@@ -1,10 +1,9 @@
 package fr.miage.revolut.service;
 
-import fr.miage.revolut.boundary.OperationRessource;
+import fr.miage.revolut.ressource.OperationRessource;
 import fr.miage.revolut.dto.input.OperationInput;
 import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.entity.Operation;
-import fr.miage.revolut.entity.OperationCarte;
 import fr.miage.revolut.entity.PivotOperationCarte;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,7 +28,7 @@ public class OperationService {
         return ressource.findById(id);
     }
 
-    public Iterable<Operation> findAll(Specification<Operation> spec){
+    public List<Operation> findAll(Specification<Operation> spec){
         return ressource.findAll(spec);
     }
 
@@ -58,6 +58,12 @@ public class OperationService {
 
         compte.debit(operation.getMontant().multiply(taux));
         compteService.update(compte);
+
+        Optional<Compte> compte2Credit = compteService.findByIban(operation.getIbanCrediteur());
+        if(compte2Credit.isPresent()){
+            compte2Credit.get().credit(operation.getMontant());
+            compteService.update(compte2Credit.get());
+        }
 
         // creation de l'opération
         Operation operation2Save = new Operation(
@@ -97,5 +103,9 @@ public class OperationService {
         }
 
         return res;
+    }
+
+    public List<Operation> findByIbanCrediteur(String iban) {
+        return ressource.findByIbanCrediteur(iban);
     }
 }

@@ -5,7 +5,7 @@ import fr.miage.revolut.boundary.CompteRepresentation;
 import fr.miage.revolut.boundary.OperationRepresentation;
 import fr.miage.revolut.dto.output.CompteOutput;
 import fr.miage.revolut.entity.Compte;
-import fr.miage.revolut.mappers.CompteMapper;
+import fr.miage.revolut.mapper.CompteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;

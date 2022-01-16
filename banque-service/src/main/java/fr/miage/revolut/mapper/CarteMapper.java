@@ -1,4 +1,4 @@
-package fr.miage.revolut.mappers;
+package fr.miage.revolut.mapper;
 
 import fr.miage.revolut.dto.input.CarteInput;
 import fr.miage.revolut.dto.output.CarteOutput;

@@ -4,6 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import fr.miage.revolut.dto.input.*;
 import fr.miage.revolut.entity.*;
+import fr.miage.revolut.ressource.CarteRessource;
+import fr.miage.revolut.ressource.CompteRessource;
+import fr.miage.revolut.ressource.OperationCarteRessource;
+import fr.miage.revolut.ressource.OperationRessource;
 import fr.miage.revolut.service.ConversionService;
 import fr.miage.revolut.service.Generator;
 import io.restassured.RestAssured;
@@ -39,10 +43,10 @@ class PaiementRepresentationTest {
 	int port;
 
 	@Autowired
-	CompteRessource compteRessource;
+    CompteRessource compteRessource;
 
 	@Autowired
-	CarteRessource carteRessource;
+    CarteRessource carteRessource;
 
     @Autowired
     OperationCarteRessource operationCarteRessource;

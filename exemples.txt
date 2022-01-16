@@ -1,0 +1,106 @@
+Créer un compte 
+
+curl --location --request POST 'localhost:8080/api/v1/comptes' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "nom": "test",
+    "prenom": "test",
+    "dateNaissance": "1999-11-12",
+    "pays": "France",
+    "numPasseport": "FR6778895",
+    "motDePasse": "password",
+    "numTel": "+339136783"
+}'
+
+Se connecter 
+
+curl --location --request POST 'localhost:8080/api/v1/comptes/connexion' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "numTel" : "+339136783",
+    "motDePasse": "password"
+}'
+
+Information sur un compte
+
+curl --location --request GET 'http://localhost:8080/api/v1/comptes/ff724395-4810-44bc-8b88-eb32ae42c88d' \
+--header 'Authorization: bearer <token>'
+
+Créer une opération
+
+curl --location --request POST 'http://localhost:8080/api/v1/comptes/ff724395-4810-44bc-8b88-eb32ae42c88d/operations' \
+--header 'Authorization: bearer <token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "libelle": "premiere operation",
+    "montant": "1000",
+    "nomCrediteur": "bob",
+    "ibanCrediteur": "FREIUHJLJSNT77DDZE2BVG",
+    "pays": "France"
+}'
+
+Déposer de l'argent 
+
+curl --location --PATCH 'http://localhost:8080/api/v1/comptes/0623b1c1-1237-4298-a646-60e17c1be709/operations/deposer/700' \
+--header 'Authorization: bearer <token>'
+
+Information sur une opération
+
+curl --location --request GET 'http://localhost:8080/api/v1/comptes/0623b1c1-1237-4298-a646-60e17c1be709/operations' \
+--header 'Authorization: bearer <token>'
+
+Filtre sur les opération
+
+curl --location --request GET 'http://localhost:8080/api/v1/comptes/ce8bbefd-886b-4d21-bf04-0f6804c52378/operations?filtres=montant:100' \
+--header 'Authorization: bearer <token> '
+
+Créer une carte
+
+curl --location --request POST 'http://localhost:8080/api/v1/comptes/0623b1c1-1237-4298-a646-60e17c1be709/cartes' \
+--header 'Authorization: Bearer <token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "plafond": 1000,
+    "localisation": true,
+    "sansContact": true,
+    "virtuelle": false
+}'
+
+Information sur une carte
+
+curl --location --request GET 'http://localhost:8080/api/v1/comptes/0623b1c1-1237-4298-a646-60e17c1be709/cartes/8db4db9a-298a-4cf6-8c26-6c268b759def' \
+--header 'Authorization: Bearer <token>'
+
+
+Modifier une carte
+
+curl --location --request PUT 'http://localhost:8080/api/v1/comptes/1bc7be1c-9b90-4e0a-be09-8c20537c0d08/cartes/cac5429d-4a88-4c1e-8e4f-401e0b05cad1' \
+--header 'Authorization: Bearer <token>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "plafond": 500,
+    "cryptogramme": true,
+    "code": true,
+    "bloque": true,
+    "supprime": false,
+    "localisation": true,
+    "sansContact": true
+}'
+
+Exemple de conversion 
+
+curl --location --request GET 'http://localhost:8081/conversion/source/United Kingdom/cible/France'
+
+Exemple de paiement 
+
+curl --location --request POST 'http://localhost:8083/payer' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "numeroCarte": "7364250699250790",
+    "cryptogrammeCarte": 214,
+    "codeCarte": 9927,
+    "montant": 100,
+    "sansContact": true
+}'
+
+

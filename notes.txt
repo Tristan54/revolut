@@ -1,7 +1,0 @@
-Pas de scalabilité dans le rapport 
-
-Opération entre 2 comptes
-
-docker exec -it keycloak /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/opt/jboss/keycloak/imports/keycloak-export.json
-
-docker exec -it keycloak /opt/jboss/keycloak/bin/standalone.sh -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/opt/jboss/keycloak/imports/keycloak-export.json -Dkeycloak.profile.feature.upload_scripts=enabled

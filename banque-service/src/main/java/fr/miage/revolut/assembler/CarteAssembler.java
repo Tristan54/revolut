@@ -1,9 +1,10 @@
 package fr.miage.revolut.assembler;
 
 import fr.miage.revolut.boundary.CarteRepresentation;
+import fr.miage.revolut.boundary.CompteRepresentation;
 import fr.miage.revolut.dto.output.CarteOutput;
 import fr.miage.revolut.entity.Carte;
-import fr.miage.revolut.mappers.CarteMapper;
+import fr.miage.revolut.mapper.CarteMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -25,7 +26,9 @@ public class CarteAssembler implements RepresentationModelAssembler<Carte, Entit
 
 
     public EntityModel<CarteOutput> toModelWithAccount(Carte carte, String compteId) {
-        return EntityModel.of(mapper.toDto(carte), linkTo(methodOn(CarteRepresentation.class).getOneCarte(compteId, carte.getUuid())).withSelfRel());
+        return EntityModel.of(mapper.toDto(carte),
+                linkTo(methodOn(CarteRepresentation.class).getOneCarte(compteId, carte.getUuid())).withSelfRel(),
+                linkTo(methodOn(CompteRepresentation.class).getOneCompte(compteId)).withSelfRel());
     }
 
     public CollectionModel<EntityModel<CarteOutput>> toCollectionModel(Iterable<? extends Carte> cartes, String compteId) {
@@ -34,8 +37,8 @@ public class CarteAssembler implements RepresentationModelAssembler<Carte, Entit
                 .map(o -> toModelWithAccount(o, compteId))
                 .collect(Collectors.toList());
         return CollectionModel.of(cartesModel,
-                linkTo(methodOn(CarteRepresentation.class)
-                        .getAllCartes(compteId)).withSelfRel());
+                linkTo(methodOn(CarteRepresentation.class).getAllCartes(compteId)).withSelfRel(),
+                linkTo(methodOn(CompteRepresentation.class).getOneCompte(compteId)).withSelfRel());
     }
 
     @Override

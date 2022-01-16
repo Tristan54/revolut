@@ -6,6 +6,8 @@ import fr.miage.revolut.dto.input.CompteSignIn;
 import fr.miage.revolut.dto.input.OperationInput;
 import fr.miage.revolut.entity.Compte;
 import fr.miage.revolut.entity.Operation;
+import fr.miage.revolut.ressource.CompteRessource;
+import fr.miage.revolut.ressource.OperationRessource;
 import fr.miage.revolut.service.ConversionService;
 import fr.miage.revolut.service.Generator;
 import io.restassured.RestAssured;
@@ -28,10 +30,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import org.mockito.Mockito.*;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;

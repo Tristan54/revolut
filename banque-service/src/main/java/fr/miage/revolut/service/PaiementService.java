@@ -1,7 +1,7 @@
 package fr.miage.revolut.service;
 
 
-import fr.miage.revolut.boundary.OperationCarteRessource;
+import fr.miage.revolut.ressource.OperationCarteRessource;
 import fr.miage.revolut.dto.input.OperationInput;
 import fr.miage.revolut.dto.input.PaiementInput;
 import fr.miage.revolut.entity.*;

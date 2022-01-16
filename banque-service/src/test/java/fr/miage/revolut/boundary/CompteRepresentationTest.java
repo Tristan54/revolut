@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import fr.miage.revolut.dto.input.CompteInput;
 import fr.miage.revolut.dto.input.CompteSignIn;
 import fr.miage.revolut.entity.Compte;
+import fr.miage.revolut.ressource.CompteRessource;
 import fr.miage.revolut.service.Generator;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;

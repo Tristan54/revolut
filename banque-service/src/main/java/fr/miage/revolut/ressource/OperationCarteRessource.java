@@ -1,4 +1,4 @@
-package fr.miage.revolut.boundary;
+package fr.miage.revolut.ressource;
 
 import fr.miage.revolut.entity.Carte;
 import fr.miage.revolut.entity.OperationCarte;

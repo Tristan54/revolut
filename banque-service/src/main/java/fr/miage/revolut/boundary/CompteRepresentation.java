@@ -28,7 +28,7 @@ import java.util.Optional;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping(value="/comptes", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/api/v1/comptes", produces = MediaType.APPLICATION_JSON_VALUE)
 @ExposesResourceFor(Compte.class)
 public class CompteRepresentation {
 
